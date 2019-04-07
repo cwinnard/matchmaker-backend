@@ -1,5 +1,8 @@
 const axios = require('axios');
 const express = require('express');
+const fs = require('fs');
+
+const { getDogInfo } = require('../logic/getDogInfo');
 
 const app = express();
 const port = 5000;
@@ -19,17 +22,22 @@ app.get('/token', (req, res) => {
         res.send(petfinderRes).status(200);
     }, (e) => {
         console.log(e);
-        res.send(e).status(401);
+        res.send(e).status(500);
     })
 });
 
 app.get('/dogs', (req, res) => {
     axios.get('https://api.petfinder.com/v2/animals?organization=CO395', HEADER).then((petfinderRes) => {
-        console.log(petfinderRes);
-        res.send(petfinderRes).status(200);
+        const json = getDogInfo(petfinderRes.data);
+        fs.writeFile('dogInfo.json', JSON.stringify(json), (e) => {
+            if (e) {
+                console.log(e);
+            }
+        });
+        res.send(json).status(200);
     }, (e) => {
         console.log(e);
-        res.send(e).status(401);
+        res.send(e).status(500);
     })
 });
 
