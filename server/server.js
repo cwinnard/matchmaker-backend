@@ -7,8 +7,7 @@ const { getDogInfo } = require('../logic/getDogInfo');
 const app = express();
 const port = 5000;
 
-const ACCESS_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImVhMTk5ZGNiMGU0ZTE0MmQwNDFlZmUzOWJiM2FlMDU5YzhhODdjZWIxMWU3YmU4NzM1MzU2Zjg1YzQxODQ0YTQ2NjM3YWZjZjc0YWI3Nzg1In0.eyJhdWQiOiI4bVdlOGhDT0VCWHEzT3RETDhsRTVwdTFTbmhnSWZnMXp0T1Z4MTgwTDRyaDFRVExWcSIsImp0aSI6ImVhMTk5ZGNiMGU0ZTE0MmQwNDFlZmUzOWJiM2FlMDU5YzhhODdjZWIxMWU3YmU4NzM1MzU2Zjg1YzQxODQ0YTQ2NjM3YWZjZjc0YWI3Nzg1IiwiaWF0IjoxNTU0Njc1NjcxLCJuYmYiOjE1NTQ2NzU2NzEsImV4cCI6MTU1NDY3OTI3MSwic3ViIjoiIiwic2NvcGVzIjpbXX0.ChNW1TzZ_ntj8zFtKdkSe_QfJ5B7tG39DoWTp5i8aASseUV0oIIRKhueZR84MN4P6IyP-Ia7_p4Bq9cM_zXSdP6XN5sRRmtKYoHP5PhNA_BbOpomcdve7UEiUzTgVFXW_Hx9cmLzEh2Tnw2I_E1ACu33trDHtgAN3LicqlJMciL-aTVC37gmEW7i6Hon6tAoLhZskSKDfQZkb2pQMm0UcY2p_Xv4J3EdRTE0jMml9qte2rE6-SBVeUhJ5MsM1nMM4YO2juCquJjcdW21ZynahHUT-_FW38Zne676w3eXYz3GBcNJgdlRl6_b8sZWRSFi2Vqzsxpuvp9Vnq03NXR4SA';
-
+const ACCESS_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImNkMzBkZmIxODcxYzg1MDdlNGNlMDlhOTE0MWQ1ODA4ZDM2Y2I5NTgwYTdhY2JlNmNiOTI0YmJmNjY1NzdlMTdlOTcxMzkwNGQ4NmZjMWE3In0.eyJhdWQiOiI4bVdlOGhDT0VCWHEzT3RETDhsRTVwdTFTbmhnSWZnMXp0T1Z4MTgwTDRyaDFRVExWcSIsImp0aSI6ImNkMzBkZmIxODcxYzg1MDdlNGNlMDlhOTE0MWQ1ODA4ZDM2Y2I5NTgwYTdhY2JlNmNiOTI0YmJmNjY1NzdlMTdlOTcxMzkwNGQ4NmZjMWE3IiwiaWF0IjoxNTU1MjYxMjM1LCJuYmYiOjE1NTUyNjEyMzUsImV4cCI6MTU1NTI2NDgzNCwic3ViIjoiIiwic2NvcGVzIjpbXX0.qcPRKAQYp2xuTWcwsyIQ1sTpzy7K98d2v1ZJOMAeBPjzv7BHRTPlJGD-DtkIHgjiK3QkONErC5bINDzNupOYY2aRAXbdK8NxEJnaMIbnI9TR8Ff7ugc4i9RYRpyBaoSdWipwdJhw0sxAwOPiMR6UE031UCgkw34ZTuOmU4PYoHe3sdq1diaqKsSZEuI73ywKXUTde_OUh0NmQTwf1tgoJqn68GMi888e2EMeQSYbpIeT1MGTImhuZV5ZzVDXpqNoKmw9We-1iItlDisBhJHtzcBe60YhG9sotVKqPj7r39Q_MKfGJeuF18kqz8CMI5Vicf1TXJCuFH2ggy5TQWLsvg'
 const HEADER =  { headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN } };
 
 app.get('/token', (req, res) => {
@@ -40,5 +39,17 @@ app.get('/dogs', (req, res) => {
         res.send(e).status(500);
     })
 });
+
+app.get('/dog', (req, res) => {
+    const id = req.query.doggieID;
+    axios.get(`https://api.petfinder.com/v2/animals/${id}`, HEADER).then((petfinderRes) => {
+        console.log(petfinderRes.data);
+        res.send('a').status(200);
+    }, (e) => {
+        console.log(e);
+        res.send(e).status(500);
+    })
+});
+
 
 app.listen(process.env.PORT || port, () => console.log(`matchmaker running on port ${port}`));

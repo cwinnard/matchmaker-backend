@@ -4,6 +4,7 @@ const getDogInfo = (petfinderRes) => {
     if (!petfinderRes || !petfinderRes.animals) {
         return [];
     }
+    console.log(petfinderRes.animals);
     const dogInfo = petfinderRes.animals.map((animal) => {
         return _.pick(animal, ['id', 'name', 'description', 'age', 'gender', 'size', 'photos', 'breeds'])
     });
