@@ -11,8 +11,7 @@ const { Dog } = require('./database/models/dog');
 const app = express();
 const port = 5000;
 
-process.env.ACCESS_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImNkMzBkZmIxODcxYzg1MDdlNGNlMDlhOTE0MWQ1ODA4ZDM2Y2I5NTgwYTdhY2JlNmNiOTI0YmJmNjY1NzdlMTdlOTcxMzkwNGQ4NmZjMWE3In0.eyJhdWQiOiI4bVdlOGhDT0VCWHEzT3RETDhsRTVwdTFTbmhnSWZnMXp0T1Z4MTgwTDRyaDFRVExWcSIsImp0aSI6ImNkMzBkZmIxODcxYzg1MDdlNGNlMDlhOTE0MWQ1ODA4ZDM2Y2I5NTgwYTdhY2JlNmNiOTI0YmJmNjY1NzdlMTdlOTcxMzkwNGQ4NmZjMWE3IiwiaWF0IjoxNTU1MjYxMjM1LCJuYmYiOjE1NTUyNjEyMzUsImV4cCI6MTU1NTI2NDgzNCwic3ViIjoiIiwic2NvcGVzIjpbXX0.qcPRKAQYp2xuTWcwsyIQ1sTpzy7K98d2v1ZJOMAeBPjzv7BHRTPlJGD-DtkIHgjiK3QkONErC5bINDzNupOYY2aRAXbdK8NxEJnaMIbnI9TR8Ff7ugc4i9RYRpyBaoSdWipwdJhw0sxAwOPiMR6UE031UCgkw34ZTuOmU4PYoHe3sdq1diaqKsSZEuI73ywKXUTde_OUh0NmQTwf1tgoJqn68GMi888e2EMeQSYbpIeT1MGTImhuZV5ZzVDXpqNoKmw9We-1iItlDisBhJHtzcBe60YhG9sotVKqPj7r39Q_MKfGJeuF18kqz8CMI5Vicf1TXJCuFH2ggy5TQWLsvg'
-const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
+process.env.ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjFlMzQzMzAyNGNlOTlhM2U0NzgwMWQ0YzI0MWJkZjc1OGRjYjcxMmYxODJjNjJmZWIxZGM3Y2I3OWJkZGQwNjEzY2ExYjBmNGQ0NjUwMjE3In0.eyJhdWQiOiI4bVdlOGhDT0VCWHEzT3RETDhsRTVwdTFTbmhnSWZnMXp0T1Z4MTgwTDRyaDFRVExWcSIsImp0aSI6IjFlMzQzMzAyNGNlOTlhM2U0NzgwMWQ0YzI0MWJkZjc1OGRjYjcxMmYxODJjNjJmZWIxZGM3Y2I3OWJkZGQwNjEzY2ExYjBmNGQ0NjUwMjE3IiwiaWF0IjoxNTU1MjY0ODY4LCJuYmYiOjE1NTUyNjQ4NjgsImV4cCI6MTU1NTI2ODQ2OCwic3ViIjoiIiwic2NvcGVzIjpbXX0.rNE0umsVGi58s5YCMNFOOw_G81VWbh-Qg0J-Esg73HeGCdM6RBaEe_FfCLhvPQLdHu7u1lHSPk8JIgZKlmJZqojFf7pnSBvcu1So5A7tXNN47s-yamgplmpUjvQkLSoX1O_CYqngk0T3D14LGHg9F3n9GQzRYKhUHLKMh4SaE7bS1E9GJL09ONjSrO2B1PVYX7NpJN_Bg_evp6l5rHZBAJigj2ZM6TDJ38WNnCCx5u1XcsmfaIreFokhvOa6uemBfOKpl7-9dLSE4BAafdp4kzodC5h86eQ0x0SvEIMjPlKujabeLbI8nX4ftzl9fwz4oCt_CdLNuJH996f34A5S2g"
 
 app.get('/token', (req, res) => {
     const payload = {
@@ -30,7 +29,9 @@ app.get('/token', (req, res) => {
 });
 
 app.get('/dogs', (req, res) => {
-    axios.get('https://api.petfinder.com/v2/animals?organization=CO395', HEADER).then((petfinderRes) => {
+    const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
+    const page = req.query.page || 1;
+    axios.get(`https://api.petfinder.com/v2/animals?organization=CO395&page=${page}`, HEADER).then((petfinderRes) => {
         const dogs = getDogInfo(petfinderRes.data);
         const models = dogs.map((dog) => {
             return new Dog(dog);
@@ -44,6 +45,7 @@ app.get('/dogs', (req, res) => {
 });
 
 app.get('/dog', (req, res) => {
+    const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
     const id = req.query.doggieID;
     axios.get(`https://api.petfinder.com/v2/animals/${id}`, HEADER).then((petfinderRes) => {
         console.log(petfinderRes.data);
