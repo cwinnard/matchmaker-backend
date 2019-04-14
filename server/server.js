@@ -22,7 +22,7 @@ app.get('/token', (req, res) => {
     };
     axios.post('https://api.petfinder.com/v2/oauth2/token', payload).then((petfinderRes) => {
         process.env.ACCESS_TOKEN = petfinderRes.data.access_token;
-        res.send(petfinderRes).status(200);
+        res.send(petfinderRes.data).status(200);
     }, (e) => {
         console.log(e);
         res.send(e).status(500);
