@@ -64,9 +64,9 @@ app.get('/take-survey', (req, res) => {
     axios.get(`https://api.petfinder.com/v2/animals?organization=CO395&page=${page}`, HEADER).then((petfinderRes) => {
         const surveyReses = surveyDogTypes(petfinderRes.data);
         const models = surveyReses.map((surveyRes) => {
-            return new SurveyReses(surveyRes);
+            return new SurveyRes(surveyRes);
         });
-        SurveyReses.collection.insertMany(models);
+        SurveyRes.collection.insertMany(models);
         res.send(surveyRes).status(200);
     }, (e) => {
         console.log(e);
