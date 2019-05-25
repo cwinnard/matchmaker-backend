@@ -4,8 +4,10 @@ const express = require('express');
 require('./database/connect');
 
 const { getDogInfo } = require('./logic/getDogInfo');
+const { surveyDogTypes } = require('./logic/surveyDogTypes');
 
 const { Dog } = require('./database/models/dog');
+const { SurveyRes } = require('./database/models/surveyRes');
 
 
 const app = express();
@@ -55,6 +57,23 @@ app.get('/dog', (req, res) => {
         res.send(e).status(500);
     })
 });
+
+app.get('/take-survey', (req, res) => {
+    const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
+    const page = req.query.page || 1;
+    axios.get(`https://api.petfinder.com/v2/animals?organization=CO395&page=${page}`, HEADER).then((petfinderRes) => {
+        const surveyReses = surveyDogTypes(petfinderRes.data);
+        const models = surveyReses.map((surveyRes) => {
+            return new SurveyReses(surveyRes);
+        });
+        SurveyReses.collection.insertMany(models);
+        res.send(surveyRes).status(200);
+    }, (e) => {
+        console.log(e);
+        res.send(e).status(500);
+    })
+});
+
 
 
 app.listen(process.env.PORT || port, () => console.log(`matchmaker running on port ${port}`));
