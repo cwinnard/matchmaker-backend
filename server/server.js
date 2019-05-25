@@ -62,6 +62,8 @@ app.get('/take-survey', (req, res) => {
     const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
     const page = req.query.page || 1;
     const orgId = req.query.orgId || 1;
+    console.log(page);
+    console.log(orgId);
     axios.get(`https://api.petfinder.com/v2/animals?organization=${orgId}&page=${page}`, HEADER).then((petfinderRes) => {
         const surveyReses = surveyDogTypes(petfinderRes.data);
         const models = surveyReses.map((surveyRes) => {
