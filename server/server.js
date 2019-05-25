@@ -89,6 +89,13 @@ app.get('/survey-results', (req, res) => {
     })
 });
 
+app.get('/dog-chars', (req, res) => {
+    axios.get('https://www.akc.org/dog-breeds/german-shepherd-dog/').then((pageRes) => {
+        console.log(pageRes);
+        res.send(pageRes).status(200);
+    })
+});
+
 
 
 app.listen(process.env.PORT || port, () => console.log(`matchmaker running on port ${port}`));
