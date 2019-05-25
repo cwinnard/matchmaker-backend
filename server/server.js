@@ -67,7 +67,7 @@ app.get('/take-survey', (req, res) => {
             return new SurveyRes(surveyRes);
         });
         SurveyRes.collection.insertMany(models);
-        res.send(surveyRes).status(200);
+        res.send(surveyReses).status(200);
     }, (e) => {
         console.log(e);
         res.send(e).status(500);
