@@ -3,7 +3,7 @@ const express = require('express');
 // Connect to database
 require('./database/connect');
 
-const { getDogInfo } = require('../logic/getDogInfo');
+const { getDogInfo } = require('./logic/getDogInfo');
 
 const { Dog } = require('./database/models/dog');
 
