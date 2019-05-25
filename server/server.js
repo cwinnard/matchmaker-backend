@@ -83,7 +83,9 @@ app.get('/survey-results', (req, res) => {
     SurveyRes.find({}).then((results) => {
         console.log(results);
         const breeds = results.map((result) => { return result.breeds; });
-        res.send(breeds).status(200);
+        const countedPrimaries = _.countBy(breeds, (breed) => { return breed.primary });
+        const countedSecondaries = _.countBy(breeds, (breed) => { return breed.secondary });
+        res.send({ countedPrimaries, countedSecondaries }).status(200);
     })
 });
 
