@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const axios = require('axios');
 const express = require('express');
 // Connect to database
@@ -81,6 +82,8 @@ app.get('/take-survey', (req, res) => {
 app.get('/survey-results', (req, res) => {
     SurveyRes.find({}).then((results) => {
         console.log(results);
+        const breeds = results.map((result) => { return result.breeds; });
+        res.send(breeds).status(200);
     })
 });
 
