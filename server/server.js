@@ -61,7 +61,7 @@ app.get('/dog', (req, res) => {
 app.get('/take-survey', (req, res) => {
     const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
     const page = req.query.page || 1;
-    axios.get(`https://api.petfinder.com/v2/animals?organization=CO395&page=${page}`, HEADER).then((petfinderRes) => {
+    axios.get(`https://api.petfinder.com/v2/animals?organization=CO311&page=${page}`, HEADER).then((petfinderRes) => {
         const surveyReses = surveyDogTypes(petfinderRes.data);
         const models = surveyReses.map((surveyRes) => {
             return new SurveyRes(surveyRes);
