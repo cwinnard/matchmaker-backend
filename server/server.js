@@ -78,6 +78,12 @@ app.get('/take-survey', (req, res) => {
     })
 });
 
+app.get('/survey-results', (req, res) => {
+    SurveyRes.find({}).then((results) => {
+        console.log(results);
+    })
+});
+
 
 
 app.listen(process.env.PORT || port, () => console.log(`matchmaker running on port ${port}`));
