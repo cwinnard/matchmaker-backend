@@ -113,8 +113,9 @@ app.get('/get-all-breed-info', (req, res) => {
     axios.get('https://www.akc.org/dog-breeds/').then((pageRes) => {
         const split = pageRes.data.split('Select A Breed');
         const textString = split[0].split('Yorkshire Terrier');
+        console.log(textString[0]);
         const regex = /https:\/\/www.akc.org\/dog-breeds\/.+\//g;
-        const urls = textString.match(regex);
+        const urls = textString[0].match(regex);
         console.log(urls);
     });
 });
