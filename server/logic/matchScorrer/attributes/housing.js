@@ -15,12 +15,27 @@ const bestApartmentDog = (breedInfo) => {
     return breedInfo.characteristics.includes('best dogs for apartments dwellers');
 }
 
+const determineStandardHousingScore = (dogInfo, breedInfo) => {
+    let housingScore = [0, 0, 0];
+    const activityScore = activityLevels[breedInfo.activityLevel];
+    const sizeScore = sizes[dogInfo.size.toLowerCase()];
+    const totalScore = activityScore + sizeScore;
+    if (totalScore < 4) {
+        housingScore = [2, 2, 6];
+    } else if (totalScore >= 4 && totalScore < 6) {
+        housingScore = [6, 6, 2];
+    } else {
+        housingScore = [6, 4, 0];
+    }
+    return housingScore;
+}
+
 const getHousingScore = (dogInfo, breedInfo) => {
     let housingScore = [0, 0, 0];
     if (bestApartmentDog(breedInfo)) {
         housingScore = [0, 0, 6];
-    } else if (breedInfo.activityLevel === 'energetic' && dogInfo.size === 'Medium') {
-        housingScore = [6, 4, 2];
+    } else {
+        housingScore = determineStandardHousingScore(dogInfo, breedInfo);
     };
     return housingScore;
 }

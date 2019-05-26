@@ -6,7 +6,7 @@ describe('match scorrer', () => {
 
     it('should determine ideal score for attribute provided', (done) => {
         const housingScores = scorrer.getAttributeScore('housing', dogInfo, breedInfo);
-        expect(housingScores).toEqual([6, 4, 2]);
+        expect(housingScores).toEqual([6, 6, 2]);
         done();
     });
 
