@@ -1,3 +1,4 @@
+// Order goes [small, medium, large]
 const getSizeScore = (size) => {
     switch(size) {
     case 'Small':

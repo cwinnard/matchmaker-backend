@@ -3,6 +3,7 @@ const { getKidsPetsScore } = require('./attributes/kidsPets');
 const { getLifestyleActivityScore } = require('./attributes/lifestyleActivity');
 const { getAgeScore } = require('./attributes/age');
 const { getSizeScore } = require('./attributes/size');
+const { getTimeCommitmentScore } = require('./attributes/timeCommitment');
 
 function MatchScorrer() {}
 
@@ -18,6 +19,8 @@ MatchScorrer.prototype.getAttributeScore = function (attributeName, dogInfo, bre
         return getAgeScore(dogInfo.age);
     case('size'):
         return getSizeScore(dogInfo.size);
+    case('timeCommitment'):
+        return getTimeCommitmentScore(dogInfo, breedInfo);
     default:
         return [0, 0, 0];
     }

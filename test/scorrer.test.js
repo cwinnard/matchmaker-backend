@@ -103,4 +103,26 @@ describe('match scorrer', () => {
         expect(large).toEqual([0, 2, 6]);
         done();
     });
+
+    // FIXME: Spend some more time here
+    it('should determine score range for time commitment attr', (done) => {
+        const puppyHighCommitment = scorrer.getAttributeScore('timeCommitment', {age: 'Baby'}, null);
+        const seniorLowCommitment = scorrer.getAttributeScore('timeCommitment', {age: 'Senior'}, null);
+
+        const lowEnergy = scorrer.getAttributeScore('timeCommitment', {age: 'Adult'}, {activityLevel: 'calm'});
+        const midEnergy = scorrer.getAttributeScore('timeCommitment', {age: 'Adult'}, {activityLevel: 'regular exercise'});
+        const highEnergy = scorrer.getAttributeScore('timeCommitment', {age: 'Adult'}, {activityLevel: 'energetic'});
+        const ultraEnergy = scorrer.getAttributeScore('timeCommitment', {age: 'Adult'}, {activityLevel: 'needs lots of activity'});
+        const unknownEnergy = scorrer.getAttributeScore('timeCommitment', {age: 'Adult'}, {});
+
+        expect(puppyHighCommitment).toEqual([0, 0, 6]);
+        expect(seniorLowCommitment).toEqual([6, 3, 0]);
+
+        expect(lowEnergy).toEqual([6, 4, 2]);
+        expect(midEnergy).toEqual([3, 3, 3]);
+        expect(highEnergy).toEqual([1, 4, 4]);
+        expect(ultraEnergy).toEqual([0, 3, 6]);
+        expect(unknownEnergy).toEqual([3, 3, 3]);
+        done();
+    });
 });

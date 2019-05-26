@@ -1,3 +1,4 @@
+// Order goes [puppy, adult, senior]
 const getAgeScore = (age) => {
     switch(age) {
     case 'Baby':

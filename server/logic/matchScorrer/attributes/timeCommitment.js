@@ -1,5 +1,5 @@
-// Order goes [low, medium, high]
-const getLifestyleActivityScore = (dogInfo, breedInfo) => {
+// Order goes [minimal, some, lots]
+const getTimeCommitmentScore = (dogInfo, breedInfo) => {
     if (dogInfo.age === "Baby") {
         return [0, 2, 6];
     } else if (dogInfo.age === "Senior") {
@@ -21,4 +21,4 @@ const getLifestyleActivityScore = (dogInfo, breedInfo) => {
     return [0, 0, 0];
 }
 
-module.exports = { getLifestyleActivityScore };
+module.exports = { getTimeCommitmentScore };
