@@ -114,7 +114,7 @@ app.get('/get-all-breed-info', (req, res) => {
         const split = pageRes.data.split('Select A Breed');
         const textString = split[0].split('Yorkshire Terrier');
         const regex = /https:\/\/www.akc.org\/dog-breeds\/.+\//g;
-        const urls = textString.matchAll(regex);
+        const urls = textString.match(regex);
         console.log(urls);
     });
 });
