@@ -15,7 +15,6 @@ const populateDogRecords = (dogs) => {
     const formattedModels = dogs.map((dog) => {
         return new Promise(function(resolve, reject) {
             getBreedInfo(dog.breeds).then((breedInfo) => {
-                console.log(breedInfo);
                 const model = new Dog({
                     id: dog.id,
                     name: dog.name,
