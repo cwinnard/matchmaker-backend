@@ -118,7 +118,7 @@ describe('match scorrer', () => {
         expect(puppyHighCommitment).toEqual([0, 0, 6]);
         expect(seniorLowCommitment).toEqual([6, 3, 0]);
 
-        expect(lowEnergy).toEqual([6, 4, 2]);
+        expect(lowEnergy).toEqual([6, 4, 1]);
         expect(midEnergy).toEqual([3, 3, 3]);
         expect(highEnergy).toEqual([1, 4, 4]);
         expect(ultraEnergy).toEqual([0, 3, 6]);
