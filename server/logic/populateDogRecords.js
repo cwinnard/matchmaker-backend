@@ -4,6 +4,7 @@ const MatchScorrer = require('./matchScorrer/matchScorrer');
 const populateDogRecords = (dogs) => {
     const scorrer = new MatchScorrer();
     const formattedModels = dogs.map((dog) => {
+        console.log(dog);
         return new Dog({
             id: dog.id,
             name: dog.name,
