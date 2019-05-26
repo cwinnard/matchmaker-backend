@@ -53,8 +53,7 @@ app.get('/dog', (req, res) => {
     const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
     const id = req.query.doggieID;
     axios.get(`https://api.petfinder.com/v2/animals/${id}`, HEADER).then((petfinderRes) => {
-        console.log(petfinderRes.data);
-        res.send('a').status(200);
+        res.send(petfinderRes.data).status(200);
     }, (e) => {
         console.log(e);
         res.send(e).status(500);
