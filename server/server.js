@@ -33,31 +33,16 @@ app.get('/token', (req, res) => {
 });
 
 app.get('/dogs', (req, res) => {
-    const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
-    const page = req.query.page || 1;
-    axios.get(`https://api.petfinder.com/v2/animals?organization=CO52&page=${page}`, HEADER).then((petfinderRes) => {
-        const dogs = getDogInfo(petfinderRes.data);
-        // console.log(petfinderRes.data);
-        // const models = dogs.map((dog) => {
-        //     return new Dog(dog);
-        // });
-        // Dog.collection.insertMany(models);
+    Dog.find({}).then((dogs) => {
         res.send(dogs).status(200);
-    }, (e) => {
-        console.log(e);
-        res.send(e).status(500);
-    })
+    });
 });
 
 app.get('/dog', (req, res) => {
-    const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
-    const id = req.query.doggieID;
-    axios.get(`https://api.petfinder.com/v2/animals/${id}`, HEADER).then((petfinderRes) => {
-        res.send(petfinderRes.data).status(200);
-    }, (e) => {
-        console.log(e);
-        res.send(e).status(500);
-    })
+    const id = req.query.id;
+    Dog.find({id: id}).then((dog) => {
+        res.send(dog).status(200);
+    });
 });
 
 app.get('/breeds', (req, res) => {
