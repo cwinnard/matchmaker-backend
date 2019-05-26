@@ -12,7 +12,7 @@ const formatString = (input, match) => {
 
 const getValue = (infoArray, attributeType, match) => {
     if (attributeType === attributeTypes.ARRAY) {
-        console.log(_.find(infoArray, (entry) => { return entry.includes(match) }));
+        console.log(formatString(_.find(infoArray, (entry) => { return entry.includes(match) }), match));
         return formatString(_.find(infoArray, (entry) => { return entry.includes(match) }), match);
     } else if (attributeType === attributeTypes.STRING) {
         const hits = _.filter(infoArray, (entry) => {
