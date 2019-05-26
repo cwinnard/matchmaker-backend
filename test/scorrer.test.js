@@ -1,5 +1,5 @@
 const MatchScorrer = require('../server/logic/matchScorrer/matchScorrer');
-const { dogInfo, breedInfo } = require('./data');
+const { ausShepDogInfo, ausShepBreedInfo } = require('./data');
 
 describe('match scorrer', () => {
     const scorrer = new MatchScorrer();
@@ -12,12 +12,12 @@ describe('match scorrer', () => {
 
     it('should determine score range for housing attr', (done) => {
         const smallRegularScores = scorrer.getAttributeScore('housing', { size: 'Small' }, { activityLevel: 'regular exercise', characteristics: [] });
-        const mediumEnergeticScores = scorrer.getAttributeScore('housing', dogInfo, breedInfo);
+        const mediumEnergeticScores = scorrer.getAttributeScore('housing', ausShepDogInfo, ausShepBreedInfo);
         const bigMaxEnergyScores = scorrer.getAttributeScore('housing', { size: 'Large' }, { activityLevel: 'needs lots of activity', characteristics: [] });
 
-        const newBreedInfo = breedInfo;
+        const newBreedInfo = ausShepBreedInfo;
         newBreedInfo.characteristics.push('best dogs for apartments dwellers');
-        const apartmentPrefScores = scorrer.getAttributeScore('housing', dogInfo, newBreedInfo);
+        const apartmentPrefScores = scorrer.getAttributeScore('housing', ausShepDogInfo, newBreedInfo);
 
         expect(smallRegularScores).toEqual([2, 2, 6]);
         expect(mediumEnergeticScores).toEqual([6, 6, 2]);
@@ -41,7 +41,7 @@ describe('match scorrer', () => {
         const breedDoesntLikeEitherhDogFriendlyKidsOnly = scorrer.getAttributeScore('kidsPets', {environment: {children: true, dogs: false}}, {goodWith: []});
         const breedDoesntLikeEitherDogFriendlyPetsOnly = scorrer.getAttributeScore('kidsPets', {environment: {children: false, dogs: true}}, {goodWith: []});
 
-        const liveData = scorrer.getAttributeScore('kidsPets', dogInfo, breedInfo);
+        const liveData = scorrer.getAttributeScore('kidsPets', ausShepDogInfo, ausShepBreedInfo);
 
         expect(breedAndDogLoveBoth).toEqual([6, 6, 6, 2]);
         expect(breedAndDogLoveOnlyKids).toEqual([6, 0, 0, 3]);
@@ -127,7 +127,7 @@ describe('match scorrer', () => {
     });
 
     it('should return entire score grid', (done) => {
-        const finalScoreGrid = scorrer.getScoreGrid(dogInfo, breedInfo);
+        const finalScoreGrid = scorrer.getScoreGrid(ausShepDogInfo, ausShepBreedInfo);
         const expected = {"age": [0, 6, 2], "housing": [1, 1, 6], "kidsPets": [6, 6, 6, 2], "lifestyleActivity": [1, 4, 6], "size": [2, 6, 2], "timeCommitment": [1, 4, 4]};
         expect(finalScoreGrid).toEqual(expected);
         done();

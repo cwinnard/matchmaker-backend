@@ -1,4 +1,4 @@
-const dogInfo = {
+const ausShepDogInfo = {
     "id": 44791421,
     "organization_id": "CO395",
     "url": "https://www.petfinder.com/dog/penny-44791421/co/winter-park/mountain-pet-rescue-co395/?referrer_id=2f9b8494-3790-4c69-a667-d2dc55f08876",
@@ -71,7 +71,7 @@ const dogInfo = {
     }
 };
 
-const breedInfo = {
+const ausShepBreedInfo = {
     "_id": {
         "$oid": "5ceab14372c7750017cc91a8"
     },
@@ -98,4 +98,4 @@ const breedInfo = {
     "__v": 0
 };
 
-module.exports = { dogInfo, breedInfo };
+module.exports = { ausShepDogInfo, ausShepBreedInfo };
