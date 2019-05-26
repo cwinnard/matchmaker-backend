@@ -1,5 +1,12 @@
 const MatchScorrer = require('../server/logic/matchScorrer/matchScorrer');
-const { ausShepDogInfo, ausShepBreedInfo, chihDogInfo, chihBreedInfo } = require('./data');
+const {
+    ausShepDogInfo,
+    ausShepBreedInfo,
+    chihDogInfo,
+    chihBreedInfo,
+    seniorRetrieverDogInfo,
+    goldenRetrieverBreedInfo,
+} = require('./data');
 
 describe('match scorrer', () => {
     const scorrer = new MatchScorrer();
@@ -126,12 +133,15 @@ describe('match scorrer', () => {
     it('should return entire score grid', (done) => {
         const ausShepScores = scorrer.getScoreGrid(ausShepDogInfo, ausShepBreedInfo);
         const chihScores = scorrer.getScoreGrid(chihDogInfo, chihBreedInfo);
+        const oldGoldScores = scorrer.getScoreGrid(seniorRetrieverDogInfo, goldenRetrieverBreedInfo);
 
         const expectedAusShepScores = {"age": [0, 6, 2], "housing": [6, 6, 2], "kidsPets": [6, 6, 6, 2], "lifestyleActivity": [1, 4, 6], "size": [2, 6, 2], "timeCommitment": [1, 4, 4]};
         const expectedChihScores = {"age": [0, 6, 2], "housing": [1, 1, 6], "kidsPets": [0, 3, 0, 3], "lifestyleActivity": [2, 4, 4], "size": [6, 2, 0], "timeCommitment": [3, 3, 3]};
+        const expectedOldGoldScores = {"age": [0, 2, 6], "housing": [6, 4, 0], "kidsPets": [3, 6, 2, 2], "lifestyleActivity": [6, 2, 0], "size": [0, 2, 6], "timeCommitment": [6, 3, 0]};
 
         expect(ausShepScores).toEqual(expectedAusShepScores);
         expect(chihScores).toEqual(expectedChihScores);
+        expect(oldGoldScores).toEqual(expectedOldGoldScores);
         done();
     });
 });

@@ -196,4 +196,40 @@ const chihBreedInfo = {
     "__v": 0
 };
 
-module.exports = { ausShepDogInfo, ausShepBreedInfo, chihDogInfo, chihBreedInfo };
+const seniorRetrieverDogInfo = {"id":44531538,"organization_id":"CO178","url":"https://www.petfinder.com/dog/muttley-44531538/co/denver/golden-retriever-freedom-rescue-inc-co178/?referrer_id=2f9b8494-3790-4c69-a667-d2dc55f08876","type":"Dog","species":"Dog","breeds":{"primary":"Golden Retriever","secondary":null,"mixed":true,"unknown":false},"colors":{"primary":"Golden","secondary":"Red / Chestnut / Orange","tertiary":null},"age":"Senior","gender":"Male","size":"Large","coat":"Long","attributes":{"spayed_neutered":true,"house_trained":true,"declawed":null,"special_needs":false,"shots_current":true},"environment":{"children":null,"dogs":true,"cats":true},"tags":[],"name":"Muttley","description":"Muttley will be arriving around April 24th, 2019.\n\nMuttley is an 8 yr old Male mix.\n\nFor more information, please...","photos":[{"small":"https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/44531538/1/?bust=1556067765&width=100","medium":"https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/44531538/1/?bust=1556067765&width=300","large":"https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/44531538/1/?bust=1556067765&width=600","full":"https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/44531538/1/?bust=1556067765"}],"status":"adoptable","published_at":"2019-04-24T01:06:09+0000","contact":{"email":"staff@goldenretrieverfreedom.org","phone":"303-749-8499   ","address":{"address1":"PO Box 103130","address2":null,"city":"Denver","state":"CO","postcode":"80209","country":"US"}},"_links":{"self":{"href":"/v2/animals/44531538"},"type":{"href":"/v2/types/dog"},"organization":{"href":"/v2/organizations/co178"}}};
+
+const goldenRetrieverBreedInfo = {
+    "_id": {
+        "$oid": "5ceab12f72c7750017cc9112"
+    },
+    "characteristics": [
+        "best family dogs",
+        "best dogs for kids",
+        "smartest dogs"
+    ],
+    "goodWith": [
+        "children",
+        "dogs"
+    ],
+    "temperamentNotes": [
+        "friendly",
+        "intelligent",
+        "devoted"
+    ],
+    "name": "golden retriever",
+    "akcHandle": "golden-retriever",
+    "activityLevel": "needs lots of activity",
+    "barkingLevel": "when necessary",
+    "coatType": "seasonal",
+    "trainability": "eager to please",
+    "__v": 0
+};
+
+module.exports = {
+    ausShepDogInfo,
+    ausShepBreedInfo,
+    chihDogInfo,
+    chihBreedInfo,
+    seniorRetrieverDogInfo,
+    goldenRetrieverBreedInfo,
+};
