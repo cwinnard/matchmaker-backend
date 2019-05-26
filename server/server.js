@@ -40,7 +40,7 @@ app.get('/dogs', (req, res) => {
 
 app.get('/dog', (req, res) => {
     const id = req.query.id;
-    Dog.find({id: id}).then((dog) => {
+    Dog.findOne({id: id}).then((dog) => {
         res.send(dog).status(200);
     });
 });
