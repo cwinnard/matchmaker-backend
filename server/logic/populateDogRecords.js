@@ -7,6 +7,12 @@ const formatBreedName = (name) => {
         return 'australian shepherd'
     } else if (name.includes('labrador')) {
         return 'labrador retriever';
+    } else if (name.includes('blue heeler') || name.includes('australian cattle dog')) {
+        return 'australian cattle dog';
+    } else if (name.includes('saint bernard')) {
+        return 'st bernard';
+    } else if (name.includes('bulldog')) {
+        return 'bulldog';
     }
     return name;
 }
