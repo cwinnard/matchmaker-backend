@@ -28,11 +28,11 @@ const getValue = (infoArray, attributeType, match) => {
 const getGoodWith = (infoArray) => {
     const goodWith = [];
     const children = _.find(infoArray, (entry) => { return entry.includes('good-with-children-') });
-    if (children.includes('yes')) {
+    if (children && children.includes('yes')) {
         goodWith.push('children');
     }
     const dogs = _.find(infoArray, (entry) => { return entry.includes('good-with-dogs-') });
-    if (dogs.includes('yes') || dogs.includes('with-supervision')) {
+    if (dogs && (dogs.includes('yes') || dogs.includes('with-supervision'))) {
         goodWith.push('dogs');
     }
     return goodWith;
