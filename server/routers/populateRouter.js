@@ -91,8 +91,7 @@ populateRouter.get('/populate-dog-records', (req, res) => {
     const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
     const page = req.query.page || 1;
     axios.get(`https://api.petfinder.com/v2/animals?organization=CO395&page=${page}`, HEADER).then((petfinderRes) => {
-        console.log(petfinderRes.data);
-        const models = populateDogRecords(petfinderRes.data);
+        const models = populateDogRecords(petfinderRes.data.animals);
         // Dog.collection.insertMany(models);
         console.log(models);
         res.send(dogs).status(200);
