@@ -78,6 +78,8 @@ populateRouter.get('/get-all-breed-info', (req, res) => {
                         console.log(`Already have record for ${handle}`);
                     }
                 });
+            }, (e) => {
+                console.log(e);
             });
         })
         res.send(handles).status(200);
