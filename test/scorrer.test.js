@@ -30,31 +30,35 @@ describe('match scorrer', () => {
     });
 
     it('should determine ideal score for kids pets attr', (done) => {
-        const breedAndDogLoveBoth = scorrer.getAttributeScore('kidsPets', dogInfo, breedInfo);
-        const breedAndDogLoveOnlyKids;
-        const breedAndDogLoveOnlyPets;
-        const breedAndDogDontLikeEither;
-
-        const breedLovesBothNoDogData;
-        const breedLovesOnlyKidsNoDogData;
-        const breedLovesOnlyPetsNoDogData;
-        const breedDoesntLikeEitherNoDogData;
-
-        const breedAndDogDontMatchDogFriendly;
-        const breedAndDogDontMatchDogUnfriendly;
+        const breedAndDogLoveBoth = scorrer.getAttributeScore('kidsPets', {environment: {children: true, dogs: true}}, {goodWith: ['dogs', 'children']});
+        // const breedAndDogLoveOnlyKids;
+        // const breedAndDogLoveOnlyPets;
+        // const breedAndDogDontLikeEither;
+        //
+        // const breedLovesBothNoDogData;
+        // const breedLovesOnlyKidsNoDogData;
+        // const breedLovesOnlyPetsNoDogData;
+        // const breedDoesntLikeEitherNoDogData;
+        //
+        // const breedAndDogDontMatchDogFriendly;
+        // const breedAndDogDontMatchDogFriendlyKidsOnly;
+        // const breedAndDogDontMatchDogFriendlyPetsOnly;
+        // const breedAndDogDontMatchDogUnfriendly;
 
         expect(breedAndDogLoveBoth).toEqual([6, 6, 6, 2]);
-        expect(breedAndDogLoveOnlyKids).toEqual([]);
-        expect(breedAndDogLoveOnlyPets).toEqual([]);
-        expect(breedAndDogDontLikeEither).toEqual([]);
-
-        expect(breedLovesBothNoDogData).toEqual([]);
-        expect( breedLovesOnlyKidsNoDogData).toEqual([]);
-        expect(breedLovesOnlyPetsNoDogData).toEqual([]);
-        expect(breedDoesntLikeEitherNoDogData).toEqual([]);
-
-        expect(breedAndDogDontMatchDogFriendly).toEqual([]);
-        expect(breedAndDogDontMatchDogUnfriendly).toEqual([]);
+        // expect(breedAndDogLoveOnlyKids).toEqual([6, 0, 0, 3]);
+        // expect(breedAndDogLoveOnlyPets).toEqual([0, 6, 0, 3]);
+        // expect(breedAndDogDontLikeEither).toEqual([0, 0, 0, 6]);
+        //
+        // expect(breedLovesBothNoDogData).toEqual([3, 3, 3, 3]);
+        // expect(breedLovesOnlyKidsNoDogData).toEqual([3, 0, 0, 3]);
+        // expect(breedLovesOnlyPetsNoDogData).toEqual([0, 3, 0, 3]);
+        // expect(breedDoesntLikeEitherNoDogData).toEqual([0, 0, 0, 3]);
+        //
+        // expect(breedAndDogDontMatchDogFriendlyBoth).toEqual([3, 3, 3, 3]);
+        // expect(breedAndDogDontMatchDogFriendlyKidsOnly).toEqual([3, 0, 0, 3]);
+        // expect(breedAndDogDontMatchDogFriendlyPetsOnly).toEqual([0, 3, 0, 3]);
+        // expect(breedAndDogDontMatchDogUnfriendly).toEqual([0, 0, 0, 3]);
         done();
     });
 });
