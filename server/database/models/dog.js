@@ -49,6 +49,10 @@ var dogSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Mixed,
         required: false,
     },
+    adopted: {
+        type: Boolean,
+        required: false,
+    }
 });
 
 var Dog = mongoose.model('dog', dogSchema);

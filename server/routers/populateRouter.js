@@ -7,6 +7,7 @@ const { SurveyRes } = require('../database/models/surveyRes');
 const { getBreedHandle } = require('../logic/getBreedHandle');
 const { surveyDogTypes } = require('../logic/surveyDogTypes');
 const { extractBreedInfo } = require('../logic/extractBreedInfo');
+const { populateDogRecords } = require('../logic/populateDogRecords');
 
 
 const populateRouter = express.Router();
@@ -84,6 +85,22 @@ populateRouter.get('/get-all-breed-info', (req, res) => {
         })
         res.send(handles).status(200);
     });
+});
+
+populateRouter.get('/populate-dog-records', (req, res) => {
+    const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
+    const page = req.query.page || 1;
+    axios.get(`https://api.petfinder.com/v2/animals?organization=CO395&page=${page}`, HEADER).then((petfinderRes) => {
+        const dogs = getDogInfo(petfinderRes.data);
+        console.log(petfinderRes.data);
+        const models = populateDogRecords(petfinderRes.data);
+        // Dog.collection.insertMany(models);
+        console.log(models);
+        res.send(dogs).status(200);
+    }, (e) => {
+        console.log(e);
+        res.send(e).status(500);
+    })
 });
 
 
