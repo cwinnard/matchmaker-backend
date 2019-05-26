@@ -2,9 +2,19 @@ const { BreedInfo } = require('../database/models/breedInfo');
 const { Dog } = require('../database/models/dog');
 const MatchScorrer = require('./matchScorrer/matchScorrer');
 
+const formatBreedName = (name) => {
+    if (name === 'shepherd') {
+        return 'australian shepherd'
+    } else if (name.includes('labrador')) {
+        return 'labrador retriever';
+    }
+    return name;
+}
+
 const getBreedInfo = (breeds) => {
     return new Promise(function(resolve, reject) {
-        BreedInfo.findOne({name: breeds.primary.toLowerCase()}).then((breedInfo) => {
+        const breedName = formatBreedName(breeds.primary.toLowerCase());
+        BreedInfo.findOne({name: breedName}).then((breedInfo) => {
             resolve(breedInfo);
         });
     });
