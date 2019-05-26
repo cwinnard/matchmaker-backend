@@ -91,10 +91,9 @@ app.get('/survey-results', (req, res) => {
 
 app.get('/dog-chars', (req, res) => {
     axios.get('https://www.akc.org/dog-breeds/german-shepherd-dog/').then((pageRes) => {
-        console.log(typeof pageRes.data);
         const split = pageRes.data.split("googletag.pubads().setTargeting('characteristic',");
-        console.log(split);
-        res.send(split[1]).status(200);
+        const array = split.split("); googletag.pubads().setTargeting('group',");
+        res.send(array[0]).status(200);
     })
 });
 
