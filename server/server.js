@@ -4,6 +4,7 @@ const express = require('express');
 // Connect to database
 require('./database/connect');
 
+const { BreedInfo } = require('./database/models/breedInfo');
 const { Dog } = require('./database/models/dog');
 const { getDogInfo } = require('./logic/getDogInfo');
 const populateRouter = require('./routers/populateRouter');
@@ -57,6 +58,14 @@ app.get('/dog', (req, res) => {
         console.log(e);
         res.send(e).status(500);
     })
+});
+
+app.get('/breeds', (req, res) => {
+    BreedInfo.find({}).then((breeds) => {
+        res.send(breeds).status(200);
+    }, (e) => {
+        console.log(e);
+    });
 });
 
 
