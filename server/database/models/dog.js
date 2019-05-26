@@ -38,7 +38,7 @@ var dogSchema = new mongoose.Schema({
         required: false,
     },
     organizationId: {
-        type: Number,
+        type: String,
         required: false,
     },
     contact: {
