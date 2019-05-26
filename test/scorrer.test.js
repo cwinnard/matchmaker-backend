@@ -1,5 +1,5 @@
 const MatchScorrer = require('../server/logic/matchScorrer/matchScorrer');
-const { ausShepDogInfo, ausShepBreedInfo } = require('./data');
+const { ausShepDogInfo, ausShepBreedInfo, chihDogInfo, chihBreedInfo } = require('./data');
 
 describe('match scorrer', () => {
     const scorrer = new MatchScorrer();
@@ -14,10 +14,7 @@ describe('match scorrer', () => {
         const smallRegularScores = scorrer.getAttributeScore('housing', { size: 'Small' }, { activityLevel: 'regular exercise', characteristics: [] });
         const mediumEnergeticScores = scorrer.getAttributeScore('housing', ausShepDogInfo, ausShepBreedInfo);
         const bigMaxEnergyScores = scorrer.getAttributeScore('housing', { size: 'Large' }, { activityLevel: 'needs lots of activity', characteristics: [] });
-
-        const newBreedInfo = ausShepBreedInfo;
-        newBreedInfo.characteristics.push('best dogs for apartments dwellers');
-        const apartmentPrefScores = scorrer.getAttributeScore('housing', ausShepDogInfo, newBreedInfo);
+        const apartmentPrefScores = scorrer.getAttributeScore('housing', ausShepDogInfo, {characteristics: ['best dogs for apartments dwellers']});
 
         expect(smallRegularScores).toEqual([2, 2, 6]);
         expect(mediumEnergeticScores).toEqual([6, 6, 2]);
@@ -127,9 +124,14 @@ describe('match scorrer', () => {
     });
 
     it('should return entire score grid', (done) => {
-        const finalScoreGrid = scorrer.getScoreGrid(ausShepDogInfo, ausShepBreedInfo);
-        const expected = {"age": [0, 6, 2], "housing": [1, 1, 6], "kidsPets": [6, 6, 6, 2], "lifestyleActivity": [1, 4, 6], "size": [2, 6, 2], "timeCommitment": [1, 4, 4]};
-        expect(finalScoreGrid).toEqual(expected);
+        const ausShepScores = scorrer.getScoreGrid(ausShepDogInfo, ausShepBreedInfo);
+        const chihScores = scorrer.getScoreGrid(chihDogInfo, chihBreedInfo);
+
+        const expectedAusShepScores = {"age": [0, 6, 2], "housing": [6, 6, 2], "kidsPets": [6, 6, 6, 2], "lifestyleActivity": [1, 4, 6], "size": [2, 6, 2], "timeCommitment": [1, 4, 4]};
+        const expectedChihScores = {"age": [0, 6, 2], "housing": [1, 1, 6], "kidsPets": [0, 3, 0, 3], "lifestyleActivity": [2, 4, 4], "size": [6, 2, 0], "timeCommitment": [3, 3, 3]};
+
+        expect(ausShepScores).toEqual(expectedAusShepScores);
+        expect(chihScores).toEqual(expectedChihScores);
         done();
     });
 });
