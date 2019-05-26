@@ -113,8 +113,9 @@ app.get('/get-all-breed-info', (req, res) => {
     axios.get('https://www.akc.org/dog-breeds/').then((pageRes) => {
         const split = pageRes.data.split('mobile-breed-search');
         const textString = split[1].split('breedArchiveComparison');
-        const urls = textString.matchAll(/https:\/\/www.akc.org\/dog-breeds(.*)\//);
-        console.log(urls);
+        console.log(textString);
+        // const urls = textString.matchAll(/https:\/\/www.akc.org\/dog-breeds(.*)\//);
+        // console.log(urls);
     });
 });
 
