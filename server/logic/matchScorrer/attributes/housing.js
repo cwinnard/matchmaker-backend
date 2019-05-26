@@ -15,6 +15,7 @@ const bestApartmentDog = (breedInfo) => {
     return breedInfo.characteristics.includes('best dogs for apartments dwellers');
 }
 
+// Order goes [house w/ secure fence, house w/o secure fence, apartment]
 const determineStandardHousingScore = (dogInfo, breedInfo) => {
     let housingScore = [0, 0, 0];
     const activityScore = activityLevels[breedInfo.activityLevel];
