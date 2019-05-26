@@ -44,6 +44,8 @@ describe('match scorrer', () => {
         const breedDoesntLikeEitherhDogFriendlyKidsOnly = scorrer.getAttributeScore('kidsPets', {environment: {children: true, dogs: false}}, {goodWith: []});
         const breedDoesntLikeEitherDogFriendlyPetsOnly = scorrer.getAttributeScore('kidsPets', {environment: {children: false, dogs: true}}, {goodWith: []});
 
+        const liveData = scorrer.getAttributeScore('kidsPets', dogInfo, breedInfo);
+
         expect(breedAndDogLoveBoth).toEqual([6, 6, 6, 2]);
         expect(breedAndDogLoveOnlyKids).toEqual([6, 0, 0, 3]);
         expect(breedAndDogLoveOnlyPets).toEqual([0, 6, 0, 3]);
@@ -57,6 +59,8 @@ describe('match scorrer', () => {
         expect(breedDoesntLikeEitherDogFriendlyBoth).toEqual([3, 3, 3, 3]);
         expect(breedDoesntLikeEitherhDogFriendlyKidsOnly).toEqual([3, 0, 0, 3]);
         expect(breedDoesntLikeEitherDogFriendlyPetsOnly).toEqual([0, 3, 0, 3]);
+
+        expect(liveData).toEqual([6, 6, 6, 2]);
         done();
     });
 });
