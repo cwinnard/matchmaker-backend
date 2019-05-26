@@ -125,4 +125,10 @@ describe('match scorrer', () => {
         expect(unknownEnergy).toEqual([3, 3, 3]);
         done();
     });
+
+    it('should return entire score grid', (done) => {
+        const finalScoreGrid = scorrer.getScoreGrid(dogInfo, breedInfo);
+        expect(finalScoreGrid).toEqual([3, 3, 3]);
+        done();
+    });
 });
