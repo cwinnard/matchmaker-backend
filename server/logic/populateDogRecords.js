@@ -14,7 +14,7 @@ const populateDogRecords = (dogs) => {
     const scorrer = new MatchScorrer();
     const formattedModels = dogs.map((dog) => {
         return new Promise(function(resolve, reject) {
-            getBreedInfo.then((breedInfo) => {
+            getBreedInfo(dog.breeds).then((breedInfo) => {
                 console.log(breedInfo);
                 const model = new Dog({
                     id: dog.id,

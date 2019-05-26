@@ -94,7 +94,7 @@ populateRouter.get('/populate-dog-records', (req, res) => {
         const models = populateDogRecords(petfinderRes.data.animals);
         // Dog.collection.insertMany(models);
         console.log(models);
-        res.send(dogs).status(200);
+        res.send(models).status(200);
     }, (e) => {
         console.log(e);
         res.send(e).status(500);
