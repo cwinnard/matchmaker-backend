@@ -1,14 +1,21 @@
+const _ = require('lodash');
 const axios = require('axios');
 const express = require('express');
-const fs = require('fs');
+// Connect to database
+require('./database/connect');
 
-const { getDogInfo } = require('../logic/getDogInfo');
+const { BreedInfo } = require('./database/models/breedInfo');
+const { Dog } = require('./database/models/dog');
+const { getDogInfo } = require('./logic/getDogInfo');
+const populateRouter = require('./routers/populateRouter');
+
 
 const app = express();
 const port = 5000;
 
-const ACCESS_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImNkMzBkZmIxODcxYzg1MDdlNGNlMDlhOTE0MWQ1ODA4ZDM2Y2I5NTgwYTdhY2JlNmNiOTI0YmJmNjY1NzdlMTdlOTcxMzkwNGQ4NmZjMWE3In0.eyJhdWQiOiI4bVdlOGhDT0VCWHEzT3RETDhsRTVwdTFTbmhnSWZnMXp0T1Z4MTgwTDRyaDFRVExWcSIsImp0aSI6ImNkMzBkZmIxODcxYzg1MDdlNGNlMDlhOTE0MWQ1ODA4ZDM2Y2I5NTgwYTdhY2JlNmNiOTI0YmJmNjY1NzdlMTdlOTcxMzkwNGQ4NmZjMWE3IiwiaWF0IjoxNTU1MjYxMjM1LCJuYmYiOjE1NTUyNjEyMzUsImV4cCI6MTU1NTI2NDgzNCwic3ViIjoiIiwic2NvcGVzIjpbXX0.qcPRKAQYp2xuTWcwsyIQ1sTpzy7K98d2v1ZJOMAeBPjzv7BHRTPlJGD-DtkIHgjiK3QkONErC5bINDzNupOYY2aRAXbdK8NxEJnaMIbnI9TR8Ff7ugc4i9RYRpyBaoSdWipwdJhw0sxAwOPiMR6UE031UCgkw34ZTuOmU4PYoHe3sdq1diaqKsSZEuI73ywKXUTde_OUh0NmQTwf1tgoJqn68GMi888e2EMeQSYbpIeT1MGTImhuZV5ZzVDXpqNoKmw9We-1iItlDisBhJHtzcBe60YhG9sotVKqPj7r39Q_MKfGJeuF18kqz8CMI5Vicf1TXJCuFH2ggy5TQWLsvg'
-const HEADER =  { headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN } };
+process.env.ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImNlMDU1YmM5ZjhmMjBjOTMyMmUzZGRjZDQ4NmYzMjlkMjg3Yjc1NTg0ZmE4NzU0NjMzNmQ5Yjc4N2U3MGYwODFmM2QzYTZhMTY4OWY5YzY3In0.eyJhdWQiOiI4bVdlOGhDT0VCWHEzT3RETDhsRTVwdTFTbmhnSWZnMXp0T1Z4MTgwTDRyaDFRVExWcSIsImp0aSI6ImNlMDU1YmM5ZjhmMjBjOTMyMmUzZGRjZDQ4NmYzMjlkMjg3Yjc1NTg0ZmE4NzU0NjMzNmQ5Yjc4N2U3MGYwODFmM2QzYTZhMTY4OWY5YzY3IiwiaWF0IjoxNTU4ODAwMTYzLCJuYmYiOjE1NTg4MDAxNjMsImV4cCI6MTU1ODgwMzc2Mywic3ViIjoiIiwic2NvcGVzIjpbXX0.k2_cJS03ZaIPeJp1tY1JiHioNfXPTOhqNwdXTK31dBzoozCK7biUziGH3KchEV4v5t75U2lWJvaQwhdCB9rV4jXvFt8D7KCc1Dgk1Ql11cRGVor0yhIdcaAiCabH5SVEMpGwAjQ78AjmOMmdH0C-KYMO4NxRnxotWWVwcAxtl3J51_f8jtxHA4-W-7h9n0hHWDsNhWtEz1cNP-VM2XXkNQv5q0h5Jgkw_-tGyUkbDtpCiI8IwEz2BpGygB71SuqDO2bUCCFxWJXAyDCDGlHiAw8fcw_CW8m6qM-gBUJlQ5TK83ebBW6b9OIEA-blyFeJ8qk_2qJhOYkDuTfqfZJP4A"
+
+app.use('/populate', populateRouter);
 
 app.get('/token', (req, res) => {
     const payload = {
@@ -17,8 +24,8 @@ app.get('/token', (req, res) => {
         'client_secret': '8ElLu03cVal1FUXtzBZkj6u3AFknuvHdSeJFCy1G',
     };
     axios.post('https://api.petfinder.com/v2/oauth2/token', payload).then((petfinderRes) => {
-        console.log(petfinderRes);
-        res.send(petfinderRes).status(200);
+        process.env.ACCESS_TOKEN = petfinderRes.data.access_token;
+        res.send(petfinderRes.data).status(200);
     }, (e) => {
         console.log(e);
         res.send(e).status(500);
@@ -26,14 +33,16 @@ app.get('/token', (req, res) => {
 });
 
 app.get('/dogs', (req, res) => {
-    axios.get('https://api.petfinder.com/v2/animals?organization=CO395', HEADER).then((petfinderRes) => {
-        const json = getDogInfo(petfinderRes.data);
-        fs.writeFile('dogInfo.json', JSON.stringify(json), (e) => {
-            if (e) {
-                console.log(e);
-            }
+    const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
+    const page = req.query.page || 1;
+    axios.get(`https://api.petfinder.com/v2/animals?organization=CO395&page=${page}`, HEADER).then((petfinderRes) => {
+        const dogs = getDogInfo(petfinderRes.data);
+        console.log(petfinderRes.data);
+        const models = dogs.map((dog) => {
+            return new Dog(dog);
         });
-        res.send(json).status(200);
+        Dog.collection.insertMany(models);
+        res.send(dogs).status(200);
     }, (e) => {
         console.log(e);
         res.send(e).status(500);
@@ -41,15 +50,23 @@ app.get('/dogs', (req, res) => {
 });
 
 app.get('/dog', (req, res) => {
+    const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
     const id = req.query.doggieID;
     axios.get(`https://api.petfinder.com/v2/animals/${id}`, HEADER).then((petfinderRes) => {
-        console.log(petfinderRes.data);
-        res.send('a').status(200);
+        res.send(petfinderRes.data).status(200);
     }, (e) => {
         console.log(e);
         res.send(e).status(500);
     })
 });
 
+app.get('/breeds', (req, res) => {
+    BreedInfo.find({}).then((breeds) => {
+        res.send(breeds).status(200);
+    }, (e) => {
+        console.log(e);
+    });
+});
 
-app.listen(process.env.PORT || port, () => console.log(`matchmaker running on port ${port}`));
+
+app.listen(process.env.PORT || port, () => console.log(`matchmaker running on port ${process.env.PORT || port}`));
