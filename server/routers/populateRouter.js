@@ -2,6 +2,7 @@ const _ = require('lodash');
 const axios = require('axios');
 const express = require('express');
 
+const { Dog } = require('../database/models/dog');
 const { BreedInfo } = require('../database/models/breedInfo');
 const { SurveyRes } = require('../database/models/surveyRes');
 const { getBreedHandle } = require('../logic/getBreedHandle');
