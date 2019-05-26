@@ -81,4 +81,15 @@ describe('match scorrer', () => {
         expect(unknownEnergy).toEqual([3, 3, 3]);
         done();
     });
+
+    it('should determine score range for age attr', (done) => {
+        const puppy = scorrer.getAttributeScore('age', {age: 'Baby'}, null);
+        const adult = scorrer.getAttributeScore('age', {age: 'Adult'}, null);
+        const senior = scorrer.getAttributeScore('age', {age: 'Senior'}, null);
+
+        expect(puppy).toEqual([6, 0, 0]);
+        expect(adult).toEqual([0, 6, 2]);
+        expect(senior).toEqual([0, 2, 6]);
+        done();
+    });
 });
