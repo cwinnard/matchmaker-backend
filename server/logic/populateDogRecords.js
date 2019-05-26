@@ -37,7 +37,7 @@ const populateDogRecords = (dogs) => {
                     photos: dog.photos,
                     organizationId: dog.organization_id,
                     contact: dog.contact,
-                    scoreGrid: breedInfo ? scorrer.getScoreGrid(dog, breedInfo) : {},
+                    scoreGrid: breedInfo ? scorrer.getScoreGrid(dog, breedInfo) : null,
                     adopted: false,
                 });
                 resolve(model);
