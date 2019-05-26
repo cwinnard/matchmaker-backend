@@ -7,7 +7,7 @@ const getGoodWith = (infoArray) => {
         goodWith.push('children');
     }
     const dogs = _.find(infoArray, (entry) => { return entry.includes('good-with-dogs-') });
-    if (dogs.includes('yes') || children.includes('with-supervision')) {
+    if (dogs.includes('yes') || dogs.includes('with-supervision')) {
         goodWith.push('dogs');
     }
     return goodWith;
