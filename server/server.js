@@ -37,11 +37,11 @@ app.get('/dogs', (req, res) => {
     const page = req.query.page || 1;
     axios.get(`https://api.petfinder.com/v2/animals?organization=CO52&page=${page}`, HEADER).then((petfinderRes) => {
         const dogs = getDogInfo(petfinderRes.data);
-        console.log(petfinderRes.data);
-        const models = dogs.map((dog) => {
-            return new Dog(dog);
-        });
-        Dog.collection.insertMany(models);
+        // console.log(petfinderRes.data);
+        // const models = dogs.map((dog) => {
+        //     return new Dog(dog);
+        // });
+        // Dog.collection.insertMany(models);
         res.send(dogs).status(200);
     }, (e) => {
         console.log(e);
