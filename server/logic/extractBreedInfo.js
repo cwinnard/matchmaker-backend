@@ -11,10 +11,9 @@ const formatString = (input, match) => {
 }
 
 const getValue = (infoArray, attributeType, match) => {
-    if (attributeType === attributeTypes.ARRAY) {
-        console.log(formatString(_.find(infoArray, (entry) => { return entry.includes(match) }), match));
+    if (attributeType === attributeTypes.STRING) {
         return formatString(_.find(infoArray, (entry) => { return entry.includes(match) }), match);
-    } else if (attributeType === attributeTypes.STRING) {
+    } else if (attributeType === attributeTypes.ARRAY) {
         const hits = _.filter(infoArray, (entry) => {
             return entry.includes(match);
         });
@@ -51,6 +50,7 @@ const extractBreedInfo = (infoArray, akcHandle) => {
     extractedInfo.coatType = getValue(infoArray, attributeTypes.STRING, 'shedding-');
     extractedInfo.temperamentNotes = getValue(infoArray, attributeTypes.ARRAY, 'temperament-');
     extractedInfo.trainability = getValue(infoArray, attributeTypes.STRING, 'trainability-');
+    console.log(extractedInfo);
     return extractedInfo;
 };
 
