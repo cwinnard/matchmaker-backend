@@ -19,8 +19,7 @@ const getHousingScore = (dogInfo, breedInfo) => {
     let housingScore = [0, 0, 0];
     if (bestApartmentDog(breedInfo)) {
         housingScore = [0, 0, 6];
-    }
-    if (breedInfo.activityLevel === 'energetic' && dogInfo.size === 'Medium') {
+    } else if (breedInfo.activityLevel === 'energetic' && dogInfo.size === 'Medium') {
         housingScore = [6, 4, 2];
     };
     return housingScore;
