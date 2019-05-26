@@ -6,7 +6,9 @@ require('./database/connect');
 
 const { getDogInfo } = require('./logic/getDogInfo');
 const { surveyDogTypes } = require('./logic/surveyDogTypes');
+const { extractBreedInfo } = require('./logic/extractBreedInfo');
 
+const { BreedInfo } = require('./database/models/breedInfo');
 const { Dog } = require('./database/models/dog');
 const { SurveyRes } = require('./database/models/surveyRes');
 
@@ -76,7 +78,7 @@ app.get('/take-survey', (req, res) => {
     }, (e) => {
         console.log(e);
         res.send(e).status(500);
-    })
+    });
 });
 
 app.get('/survey-results', (req, res) => {
@@ -86,16 +88,25 @@ app.get('/survey-results', (req, res) => {
         const countedPrimaries = _.countBy(breeds, (breed) => { return breed.primary });
         const countedSecondaries = _.countBy(breeds, (breed) => { return breed.secondary });
         res.send({ countedPrimaries, countedSecondaries }).status(200);
-    })
+    });
 });
 
 app.get('/dog-chars', (req, res) => {
-    axios.get('https://www.akc.org/dog-breeds/german-shepherd-dog/').then((pageRes) => {
+    const akcHandle = req.query.akcHandle;
+    axios.get(`https://www.akc.org/dog-breeds/${akcHandle}/`).then((pageRes) => {
         const split = pageRes.data.split("googletag.pubads().setTargeting('characteristic',");
         const array = split[1].split(");\n");
         const finalArray = JSON.parse(array[0]);
+        BreedInfo.find({akcHandle: akcHandle}).then((breedInfo) => {
+            if (!breedInfo) {
+                const info = new BreedInfo(extractBreedInfo(finalArray, akcHandle));
+                info.save();
+            } else {
+                console.log(`Already have record for ${akcHandle}`);
+            }
+        });
         res.send(finalArray).status(200);
-    })
+    });
 });
 
 
