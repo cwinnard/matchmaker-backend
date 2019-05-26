@@ -7,6 +7,7 @@ const attributeTypes = {
 }
 
 const formatString = (input, match) => {
+    console.log(input);
     return input.replace(match, '').replace(/-/g, ' ');
 }
 
@@ -40,7 +41,6 @@ const getGoodWith = (infoArray) => {
 
 const extractBreedInfo = (infoArray, akcHandle) => {
     const extractedInfo = {};
-    console.log(akcHandle);
     extractedInfo.name = akcHandle.replace(/-/g, ' ');
     extractedInfo.akcHandle = akcHandle;
     extractedInfo.characteristics = getValue(infoArray, attributeTypes.ARRAY, 'characteristic-');
