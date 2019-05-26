@@ -1,5 +1,4 @@
 const dogInfo = {
-  "animal": {
     "id": 44791421,
     "organization_id": "CO395",
     "url": "https://www.petfinder.com/dog/penny-44791421/co/winter-park/mountain-pet-rescue-co395/?referrer_id=2f9b8494-3790-4c69-a667-d2dc55f08876",
@@ -70,7 +69,6 @@ const dogInfo = {
         "href": "/v2/organizations/co395"
       }
     }
-  }
 };
 
 const breedInfo = {
