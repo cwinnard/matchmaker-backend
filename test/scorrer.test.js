@@ -10,7 +10,7 @@ describe('match scorrer', () => {
         done();
     });
 
-    it('should determine ideal score for housing attr', (done) => {
+    it('should determine score range for housing attr', (done) => {
         const smallRegularScores = scorrer.getAttributeScore('housing', { size: 'Small' }, { activityLevel: 'regular exercise', characteristics: [] });
         const mediumEnergeticScores = scorrer.getAttributeScore('housing', dogInfo, breedInfo);
         const bigMaxEnergyScores = scorrer.getAttributeScore('housing', { size: 'Large' }, { activityLevel: 'needs lots of activity', characteristics: [] });
@@ -29,7 +29,7 @@ describe('match scorrer', () => {
         done();
     });
 
-    it('should determine ideal score for kids pets attr', (done) => {
+    it('should determine score range for kids pets attr', (done) => {
         const breedAndDogLoveBoth = scorrer.getAttributeScore('kidsPets', {environment: {children: true, dogs: true}}, {goodWith: ['dogs', 'children']});
         const breedAndDogLoveOnlyKids = scorrer.getAttributeScore('kidsPets', {environment: {children: true, dogs: false}}, {goodWith: ['children']});
         const breedAndDogLoveOnlyPets = scorrer.getAttributeScore('kidsPets', {environment: {children: false, dogs: true}}, {goodWith: ['dogs']});
@@ -61,6 +61,27 @@ describe('match scorrer', () => {
         expect(breedDoesntLikeEitherDogFriendlyPetsOnly).toEqual([0, 3, 0, 3]);
 
         expect(liveData).toEqual([6, 6, 6, 2]);
+        done();
+    });
+
+    it('should determine score range for lifestyle activity attr', (done) => {
+        const puppyHighEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Baby'}, null);
+        const seniorLowEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Senior'}, null);
+
+        const lowEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Adult'}, {activityLevel: 'calm'});
+        const midEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Adult'}, {activityLevel: 'regular exercise'});
+        const highEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Adult'}, {activityLevel: 'energetic'});
+        const ultraEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Adult'}, {activityLevel: 'needs lots of activity'});
+        const unknownEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Adult'}, {});
+
+        expect(puppyHighEnergy).toEqual([0, 2, 6]);
+        expect(seniorLowEnergy).toEqual([6, 2, 0]);
+
+        expect(lowEnergy).toEqual([6, 2, 0]);
+        expect(midEnergy).toEqual([2, 4, 4]);
+        expect(highEnergy).toEqual([1, 4, 6]);
+        expect(ultraEnergy).toEqual([0, 2, 6]);
+        expect(unknownEnergy).toEqual([3, 3, 3]);
         done();
     });
 });
