@@ -7,6 +7,7 @@ require('./database/connect');
 const { BreedInfo } = require('./database/models/breedInfo');
 const { Dog } = require('./database/models/dog');
 const { getDogInfo } = require('./logic/getDogInfo');
+const matchmakerRouter = require('./routers/matchmakerRouter');
 const populateRouter = require('./routers/populateRouter');
 
 
@@ -15,6 +16,7 @@ const port = 5000;
 
 process.env.ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjBmZGJkMjBkODc1NDlkNjYyNjM1NGQzYWVjOWQwMTljYWViMjA4MTIxY2VhOTJkYWY1MWQ2OTFmYmExNjYyYmQzODY2MTkxOGRjMmUzZDlmIn0.eyJhdWQiOiI4bVdlOGhDT0VCWHEzT3RETDhsRTVwdTFTbmhnSWZnMXp0T1Z4MTgwTDRyaDFRVExWcSIsImp0aSI6IjBmZGJkMjBkODc1NDlkNjYyNjM1NGQzYWVjOWQwMTljYWViMjA4MTIxY2VhOTJkYWY1MWQ2OTFmYmExNjYyYmQzODY2MTkxOGRjMmUzZDlmIiwiaWF0IjoxNTU4OTA3NzEzLCJuYmYiOjE1NTg5MDc3MTMsImV4cCI6MTU1ODkxMTMxMywic3ViIjoiIiwic2NvcGVzIjpbXX0.F5LXQfYZJshbhuiesQ-ViO5iwbj2uzfmBKt4qG4zMrPdrZX0WkBY88TtpbUISuJ81NhDsfQDl3ZUMvKmxFBDg5wz9fMQ3SLmK6-ZOiz2vALiJkmJaXCeJUJLHR0aAI17fQlLaRbdmGZM_WtuE9cIXQRBUeIH33dzmiTZJn8SzFbzBwRSy0kVNM20JeiA1tqkTAVvIIZfmIbNO3DXsdO6CTyVeDYwvhBkbXsRe1jx1qXY5XVzkI5UyOXgIHNyPenwZcWuHbB9hK9_VbrF5gQj7HBKKbEjK74Dt0SBZ_TeAlyIaVJJDM1aGlwUSmzg7idQ1w8E-OrSpjxiicAFDTFwQg"
 
+app.use('/matchmaker', matchmakerRouter);
 app.use('/populate', populateRouter);
 
 app.get('/token', (req, res) => {
