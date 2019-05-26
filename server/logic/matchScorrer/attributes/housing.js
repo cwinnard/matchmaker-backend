@@ -33,7 +33,7 @@ const determineStandardHousingScore = (dogInfo, breedInfo) => {
 const getHousingScore = (dogInfo, breedInfo) => {
     let housingScore = [0, 0, 0];
     if (bestApartmentDog(breedInfo)) {
-        housingScore = [0, 0, 6];
+        housingScore = [1, 1, 6];
     } else {
         housingScore = determineStandardHousingScore(dogInfo, breedInfo);
     };

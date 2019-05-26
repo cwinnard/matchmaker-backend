@@ -14,7 +14,7 @@ describe('match scorrer', () => {
         const newBreedInfo = breedInfo;
         newBreedInfo.characteristics.push('best dogs for apartments dwellers');
         const housingScores = scorrer.getAttributeScore('housing', dogInfo, newBreedInfo);
-        expect(housingScores).toEqual([0, 0, 6]);
+        expect(housingScores).toEqual([1, 1, 6]);
         done();
     });
 });
