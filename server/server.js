@@ -121,7 +121,8 @@ app.get('/get-all-breed-info', (req, res) => {
         const handles = urls.map((url) => { getBreedHandle(url) });
 
         handles.forEach((handle) => {
-            axios.get(`https://www.akc.org/dog-breeds/${handle}/`).then((pageRes) => {
+            console.log(`https://www.akc.org/dog-breeds/${handle}`);
+            axios.get(`https://www.akc.org/dog-breeds/${handle}`).then((pageRes) => {
                 const split = pageRes.data.split("googletag.pubads().setTargeting('characteristic',");
                 const array = split[1].split(");\n");
                 const finalArray = JSON.parse(array[0]);
