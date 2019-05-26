@@ -1,9 +1,9 @@
 const getSizeScore = (size) => {
     switch(size) {
     case 'Small':
-        return [6, 0, 0];
+        return [6, 2, 0];
     case 'Medium':
-        return [0, 6, 2];
+        return [2, 6, 2];
     case 'Large':
         return [0, 2, 6];
     default:
