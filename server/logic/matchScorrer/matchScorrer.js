@@ -1,7 +1,7 @@
 function MatchScorrer() {}
 
-MatchScorrer.prototype.getAttributeScore = function () {
-    return {};
+MatchScorrer.prototype.getAttributeScore = function (attributeName, dogInfo, breedInfo) {
+    return [0, 0, 0];
 };
 
-export default MatchScorrer;
+module.exports = MatchScorrer;
