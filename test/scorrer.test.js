@@ -5,8 +5,8 @@ describe('match scorrer', () => {
     const scorrer = new MatchScorrer();
 
     it('should give back empty array on default case', (done) => {
-        const expected = scorrer.getAttributeScore('asdfasdf', null, null);
-        expect(expected).toEqual([0, 0, 0]);
+        const score = scorrer.getAttributeScore('asdfasdf', null, null);
+        expect(score).toEqual([0, 0, 0]);
         done();
     });
 
@@ -128,7 +128,8 @@ describe('match scorrer', () => {
 
     it('should return entire score grid', (done) => {
         const finalScoreGrid = scorrer.getScoreGrid(dogInfo, breedInfo);
-        expect(finalScoreGrid).toEqual([3, 3, 3]);
+        const expected = {"age": [0, 6, 2], "housing": [1, 1, 6], "kidsPets": [6, 6, 6, 2], "lifestyleActivity": [1, 4, 6], "size": [2, 6, 2], "timeCommitment": [1, 4, 4]};
+        expect(finalScoreGrid).toEqual(expected);
         done();
     });
 });
