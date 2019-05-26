@@ -4,6 +4,7 @@ const express = require('express');
 // Connect to database
 require('./database/connect');
 
+const { getBreedHandle } = require('./logic/getBreedHandle');
 const { getDogInfo } = require('./logic/getDogInfo');
 const { surveyDogTypes } = require('./logic/surveyDogTypes');
 const { extractBreedInfo } = require('./logic/extractBreedInfo');
@@ -117,7 +118,24 @@ app.get('/get-all-breed-info', (req, res) => {
         urls.shift();
         urls.shift();
         urls.shift();
-        res.send(urls).status(200);
+        const handles = urls.map((url) => { getBreedHandle(url) });
+
+        handles.forEach((handle) => {
+            axios.get(`https://www.akc.org/dog-breeds/${handle}/`).then((pageRes) => {
+                const split = pageRes.data.split("googletag.pubads().setTargeting('characteristic',");
+                const array = split[1].split(");\n");
+                const finalArray = JSON.parse(array[0]);
+                BreedInfo.findOne({akcHandle: akcHandle}).then((breedInfo) => {
+                    if (!breedInfo) {
+                        const info = new BreedInfo(extractBreedInfo(finalArray, akcHandle));
+                        info.save();
+                    } else {
+                        console.log(`Already have record for ${akcHandle}`);
+                    }
+                });
+            });
+        })
+        res.send(handles).status(200);
     });
 });
 
