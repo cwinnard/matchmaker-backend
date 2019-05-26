@@ -113,7 +113,7 @@ app.get('/get-all-breed-info', (req, res) => {
     axios.get('https://www.akc.org/dog-breeds/').then((pageRes) => {
         const regex = /https:\/\/www.akc.org\/dog-breeds\/.+\//g;
         const urls = pageRes.data.match(regex);
-        console.log(urls);
+        res.send(urls).status(200);
     });
 });
 
