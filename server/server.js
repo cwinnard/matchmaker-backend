@@ -109,6 +109,15 @@ app.get('/dog-chars', (req, res) => {
     });
 });
 
+app.get('/get-all-breed-info', (req, res) => {
+    axios.get('https://www.akc.org/dog-breeds/').then((pageRes) => {
+        const split = pageRes.data.split('mobile-breed-search');
+        const textString = split[1].split('breedArchiveComparison');
+        const urls = textString.matchAll(/https:\/\/www.akc.org\/dog-breeds(.*)\//);
+        console.log(urls);
+    });
+});
+
 
 
 app.listen(process.env.PORT || port, () => console.log(`matchmaker running on port ${port}`));
