@@ -1,5 +1,30 @@
 const _ = require('lodash');
 
+
+const attributeTypes = {
+    ARRAY: 'array',
+    STRING: 'string'
+}
+
+const formatString = (input, match) => {
+    return input.replace(match, '').replace(/-/g, ' ');
+}
+
+const getValue = (infoArray, attributeType, match) => {
+    if (attributeType === attributeTypes.ARRAY) {
+        return formatString(_.find(infoArray, (entry) => { return entry.includes(match) }), match);
+    } else if (attributeType === attributeTypes.STRING) {
+        const hits = _.filter(infoArray, (entry) => {
+            return entry.includes(match);
+        });
+        return hits.map((hit) => {
+            return formatString(hit, match);
+        });
+    } else {
+        return null;
+    };
+}
+
 const getGoodWith = (infoArray) => {
     const goodWith = [];
     const children = _.find(infoArray, (entry) => { return entry.includes('good-with-children-') });
@@ -17,14 +42,14 @@ const extractBreedInfo = (infoArray, akcHandle) => {
     const extractedInfo = {};
     extractedInfo.name = akcHandle.replace(/-/g, ' ');
     extractedInfo.akcHandle = akcHandle;
-    extractedInfo.characteristics = _.filter(infoArray, (entry) => { return entry.includes('characteristic-') });
-    extractedInfo.activityLevel = _.find(infoArray, (entry) => { return entry.includes('activity-level-') });
-    extractedInfo.barkingLevel = _.find(infoArray, (entry) => { return entry.includes('barking-level-') });
-    extractedInfo.coatType = _.find(infoArray, (entry) => { return entry.includes('coat-type-') });
+    extractedInfo.characteristics = getValue(infoArray, attributeTypes.ARRAY, 'characteristic-');
+    extractedInfo.activityLevel = getValue(infoArray, attributeTypes.STRING, 'activity-level-');
+    extractedInfo.barkingLevel = getValue(infoArray, attributeTypes.STRING, 'barking-level-');
+    extractedInfo.coatType = getValue(infoArray, attributeTypes.STRING, 'coat-type-');
     extractedInfo.goodWith = getGoodWith(infoArray);
-    extractedInfo.coatType = _.find(infoArray, (entry) => { return entry.includes('shedding-') });
-    extractedInfo.temperamentNotes = _.filter(infoArray, (entry) => { return entry.includes('temperament-') });
-    extractedInfo.trainability = _.find(infoArray, (entry) => { return entry.includes('trainability-') });
+    extractedInfo.coatType = getValue(infoArray, attributeTypes.STRING, 'shedding-');
+    extractedInfo.temperamentNotes = getValue(infoArray, attributeTypes.ARRAY, 'temperament-');
+    extractedInfo.trainability = getValue(infoArray, attributeTypes.STRING, 'trainability-');
     return extractedInfo;
 };
 
