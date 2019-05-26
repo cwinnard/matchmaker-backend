@@ -92,4 +92,15 @@ describe('match scorrer', () => {
         expect(senior).toEqual([0, 2, 6]);
         done();
     });
+
+    it('should determine score range for size attr', (done) => {
+        const small = scorrer.getAttributeScore('size', {size: 'Small'}, null);
+        const medium = scorrer.getAttributeScore('size', {size: 'Medium'}, null);
+        const large = scorrer.getAttributeScore('size', {size: 'Large'}, null);
+
+        expect(small).toEqual([6, 2, 0]);
+        expect(medium).toEqual([2, 6, 2]);
+        expect(large).toEqual([0, 2, 6]);
+        done();
+    });
 });
