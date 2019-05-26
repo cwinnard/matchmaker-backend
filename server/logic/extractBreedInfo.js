@@ -7,8 +7,7 @@ const attributeTypes = {
 }
 
 const formatString = (input, match) => {
-    console.log(input);
-    return input.replace(match, '').replace(/-/g, ' ');
+    return input ? input.replace(match, '').replace(/-/g, ' ') : input;
 }
 
 const getValue = (infoArray, attributeType, match) => {
