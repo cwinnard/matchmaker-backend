@@ -4,6 +4,7 @@ const getGoodWith = (infoArray) => {
     console.log(infoArray);
     const goodWith = [];
     const children = _.find(infoArray, (entry) => { entry.includes('good-with-children-') });
+    console.log(children);
     if (children.includes('yes')) {
         goodWith.push('children');
     }
