@@ -97,7 +97,7 @@ app.get('/dog-chars', (req, res) => {
         const split = pageRes.data.split("googletag.pubads().setTargeting('characteristic',");
         const array = split[1].split(");\n");
         const finalArray = JSON.parse(array[0]);
-        BreedInfo.find({akcHandle: akcHandle}).then((breedInfo) => {
+        BreedInfo.findOne({akcHandle: akcHandle}).then((breedInfo) => {
             if (!breedInfo) {
                 const info = new BreedInfo(extractBreedInfo(finalArray, akcHandle));
                 info.save();
