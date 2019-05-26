@@ -23,7 +23,7 @@ const extractBreedInfo = (infoArray, akcHandle) => {
     extractedInfo.coatType = _.find(infoArray, (entry) => { return entry.includes('coat-type-') });
     extractedInfo.goodWith = getGoodWith(infoArray);
     extractedInfo.coatType = _.find(infoArray, (entry) => { return entry.includes('shedding-') });
-    extractedInfo.tempermentNotes = _.filter(infoArray, (entry) => { return entry.includes('temperment-') });
+    extractedInfo.temperamentNotes = _.filter(infoArray, (entry) => { return entry.includes('temperament-') });
     extractedInfo.trainability = _.find(infoArray, (entry) => { return entry.includes('trainability-') });
     return extractedInfo;
 };

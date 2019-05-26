@@ -33,7 +33,7 @@ var breedInfoSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    tempermentNotes: {
+    temperamentNotes: {
         type: Array,
         required: false,
     },
