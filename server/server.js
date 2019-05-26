@@ -125,12 +125,12 @@ app.get('/get-all-breed-info', (req, res) => {
                 const split = pageRes.data.split("googletag.pubads().setTargeting('characteristic',");
                 const array = split[1].split(");\n");
                 const finalArray = JSON.parse(array[0]);
-                BreedInfo.findOne({akcHandle: akcHandle}).then((breedInfo) => {
+                BreedInfo.findOne({akcHandle: handle}).then((breedInfo) => {
                     if (!breedInfo) {
-                        const info = new BreedInfo(extractBreedInfo(finalArray, akcHandle));
+                        const info = new BreedInfo(extractBreedInfo(finalArray, handle));
                         info.save();
                     } else {
-                        console.log(`Already have record for ${akcHandle}`);
+                        console.log(`Already have record for ${handle}`);
                     }
                 });
             });
