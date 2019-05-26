@@ -9,8 +9,9 @@ const matchmakerRouter = express.Router();
 matchmakerRouter.get('/test', (req, res) => {
     const matchmaker = new MatchMaker();
     const quizResponses = [0, 1, 1, 1, 2, 2];
-    const orderedMatches = matchmaker.getMatchesInOrder(quizResponses);
-    res.send(orderedMatches).status(200);
+    matchmaker.getMatchesInOrder(quizResponses).then((orderedMatches) => {
+        res.send(orderedMatches).status(200);
+    });
 });
 
 module.exports = matchmakerRouter;
