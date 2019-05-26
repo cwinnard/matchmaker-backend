@@ -6,7 +6,7 @@ require('./database/connect');
 
 const { Dog } = require('./database/models/dog');
 const { getDogInfo } = require('./logic/getDogInfo');
-const { populateRouter } = require('./routers/populateRouter');
+const populateRouter = require('./routers/populateRouter');
 
 
 const app = express();
