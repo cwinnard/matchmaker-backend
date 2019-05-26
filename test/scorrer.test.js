@@ -71,8 +71,8 @@ describe('match scorrer', () => {
 
         const lowEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Adult'}, {activityLevel: 'calm'});
         const midEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Adult'}, {activityLevel: 'regular exercise'});
-        const highEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Adult'}, {activityLevel: 'energetic'});
-        const ultraEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Adult'}, {activityLevel: 'needs lots of activity'});
+        const highEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Young'}, {activityLevel: 'energetic'});
+        const ultraEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Young'}, {activityLevel: 'needs lots of activity'});
         const unknownEnergy = scorrer.getAttributeScore('lifestyleActivity', {age: 'Adult'}, {});
 
         expect(puppyHighEnergy).toEqual([0, 2, 6]);
@@ -88,10 +88,12 @@ describe('match scorrer', () => {
 
     it('should determine score range for age attr', (done) => {
         const puppy = scorrer.getAttributeScore('age', {age: 'Baby'}, null);
+        const young = scorrer.getAttributeScore('age', {age: 'Young'}, null);
         const adult = scorrer.getAttributeScore('age', {age: 'Adult'}, null);
         const senior = scorrer.getAttributeScore('age', {age: 'Senior'}, null);
 
         expect(puppy).toEqual([6, 0, 0]);
+        expect(young).toEqual([0, 6, 0]);
         expect(adult).toEqual([0, 6, 2]);
         expect(senior).toEqual([0, 2, 6]);
         done();
@@ -115,8 +117,8 @@ describe('match scorrer', () => {
 
         const lowEnergy = scorrer.getAttributeScore('timeCommitment', {age: 'Adult'}, {activityLevel: 'calm'});
         const midEnergy = scorrer.getAttributeScore('timeCommitment', {age: 'Adult'}, {activityLevel: 'regular exercise'});
-        const highEnergy = scorrer.getAttributeScore('timeCommitment', {age: 'Adult'}, {activityLevel: 'energetic'});
-        const ultraEnergy = scorrer.getAttributeScore('timeCommitment', {age: 'Adult'}, {activityLevel: 'needs lots of activity'});
+        const highEnergy = scorrer.getAttributeScore('timeCommitment', {age: 'Young'}, {activityLevel: 'energetic'});
+        const ultraEnergy = scorrer.getAttributeScore('timeCommitment', {age: 'Young'}, {activityLevel: 'needs lots of activity'});
         const unknownEnergy = scorrer.getAttributeScore('timeCommitment', {age: 'Adult'}, {});
 
         expect(puppyHighCommitment).toEqual([0, 0, 6]);
