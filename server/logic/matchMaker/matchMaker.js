@@ -19,9 +19,10 @@ const getMatchScore = (dog, quizResponses) => {
 MatchMaker.prototype.getMatchesInOrder = function (quizResponses) {
     return new Promise(function(resolve, reject) {
         Dog.find({}).then((dogs) => {
-            const sortedMatches = _.sortBy(dogs, (dog) => {
-                return getMatchScore(dog, quizResponses);
+            dogs.forEach((dog) => {
+                dog.matchScore = getMatchScore(dog, quizResponses);
             });
+            const sortedMatches = _.orderBy(dogs, ['matchScore'], ['desc']);
             resolve(sortedMatches);
         })
     });
