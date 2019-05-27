@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const axios = require('axios');
+const bodyParser = require('body-parser');
 const express = require('express');
 // Connect to database
 require('./database/connect');
