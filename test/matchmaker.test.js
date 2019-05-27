@@ -36,7 +36,7 @@ describe('match maker', () => {
              Object.assign({ matchScore: 17 }, tifa),
         ];
         const pupperExpected = [
-             Object.assign({ matchScore: 20 }, liam),
+             Object.assign({ matchScore: 26 }, liam),
              Object.assign({ matchScore: 18 }, noel),
              Object.assign({ matchScore: 18 }, tifa),
              Object.assign({ matchScore: 10 }, max),
