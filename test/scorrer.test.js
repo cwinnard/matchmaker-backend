@@ -6,7 +6,7 @@ const {
     chihBreedInfo,
     seniorRetrieverDogInfo,
     goldenRetrieverBreedInfo,
-} = require('./data');
+} = require('./data/data');
 
 describe('match scorrer', () => {
     const scorrer = new MatchScorrer();

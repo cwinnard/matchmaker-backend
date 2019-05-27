@@ -2,7 +2,9 @@ const _ = require('lodash');
 
 const { Dog, dogSchema } = require('../../database/models/dog');
 
-function MatchMaker() {}
+function MatchMaker(dogs) {
+    this.dogs = dogs;
+}
 
 const getMatchScore = (dog, quizResponses) => {
     let score = 0;
@@ -17,30 +19,26 @@ const getMatchScore = (dog, quizResponses) => {
 }
 
 MatchMaker.prototype.getMatchesInOrder = function (quizResponses) {
-    return new Promise(function(resolve, reject) {
-        Dog.find({}).then((dogs) => {
-            const dogsWithScores = dogs.map((dog) => {
-                return {
-                    id: dog.id,
-                    name: dog.name,
-                    gender: dog.gender,
-                    breeds: dog.breeds,
-                    environment: dog.environment,
-                    age: dog.age,
-                    size: dog.size,
-                    description: dog.description,
-                    photos: dog.photos,
-                    organizationId: dog.organizationId,
-                    contact: dog.contact,
-                    scoreGrid: dog.scoreGrid,
-                    adopted: dog.adopted,
-                    matchScore: getMatchScore(dog, quizResponses),
-                };
-            });
-            const sortedMatches = _.orderBy(dogsWithScores, ['matchScore'], ['desc']);
-            resolve(sortedMatches);
-        })
+    const dogsWithScores = this.dogs.map((dog) => {
+        return {
+            id: dog.id,
+            name: dog.name,
+            gender: dog.gender,
+            breeds: dog.breeds,
+            environment: dog.environment,
+            age: dog.age,
+            size: dog.size,
+            description: dog.description,
+            photos: dog.photos,
+            organizationId: dog.organizationId,
+            contact: dog.contact,
+            scoreGrid: dog.scoreGrid,
+            adopted: dog.adopted,
+            matchScore: getMatchScore(dog, quizResponses),
+        };
     });
+    const sortedMatches = _.orderBy(dogsWithScores, ['matchScore'], ['desc']);
+    return sortedMatches
 };
 
 module.exports = MatchMaker;
