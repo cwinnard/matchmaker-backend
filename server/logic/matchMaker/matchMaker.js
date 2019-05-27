@@ -21,6 +21,7 @@ MatchMaker.prototype.getMatchesInOrder = function (quizResponses) {
     return new Promise(function(resolve, reject) {
         Dog.find({}).then((dogs) => {
             const dogsWithScores = dogs.map((dog) => {
+                console.log(dog);
                 const dogWithScore = { ...dog };
                 dogWithScore.matchScore = getMatchScore(dogWithScore, quizResponses);
                 return dogWithScore;
