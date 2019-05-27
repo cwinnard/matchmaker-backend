@@ -12,9 +12,40 @@ describe('match maker', () => {
         const activePerson = [0, 1, 2, 1, 1, 2];
         const wantsPupper = [1, 2, 2, 0, 1, 1];
 
-        matchmaker.getMatchesInOrder(apartmentLiver).then(() => {
-            expect(score).toEqual([0, 0, 0]);
-            done();
-        });
+        const apartmentMatches = matchmaker.getMatchesInOrder(apartmentLiver);
+        const oldMatches = matchmaker.getMatchesInOrder(oldAndSlow);
+        const activeMatches = matchmaker.getMatchesInOrder(activePerson);
+        const pupperMatches = matchmaker.getMatchesInOrder(wantsPupper);
+
+        const apartmentExpected = [
+             Object.assign({ matchScore: 24 }, max),
+             Object.assign({ matchScore: 18 }, noel),
+             Object.assign({ matchScore: 18 }, tifa),
+             Object.assign({ matchScore: 6 }, liam),
+        ];
+        const oldExpected = [
+             Object.assign({ matchScore: 33 }, tifa),
+             Object.assign({ matchScore: 13 }, max),
+             Object.assign({ matchScore: 12 }, noel),
+             Object.assign({ matchScore: 8 }, liam),
+        ];
+        const activeExpected = [
+             Object.assign({ matchScore: 30 }, noel),
+             Object.assign({ matchScore: 20 }, liam),
+             Object.assign({ matchScore: 19 }, max),
+             Object.assign({ matchScore: 17 }, tifa),
+        ];
+        const pupperExpected = [
+             Object.assign({ matchScore: 20 }, liam),
+             Object.assign({ matchScore: 18 }, noel),
+             Object.assign({ matchScore: 18 }, tifa),
+             Object.assign({ matchScore: 10 }, max),
+        ];
+
+        expect(apartmentMatches).toEqual(apartmentExpected);
+        expect(oldMatches).toEqual(oldExpected);
+        expect(activeMatches).toEqual(activeExpected);
+        expect(pupperMatches).toEqual(pupperExpected);
+        done();
     });
 });
