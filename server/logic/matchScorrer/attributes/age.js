@@ -2,7 +2,7 @@
 const getAgeScore = (age) => {
     switch(age) {
     case 'Baby':
-        return [6, 0, 0];
+        return [12, 0, 0];
     case 'Young':
         return [0, 6, 0];
     case 'Adult':

@@ -92,7 +92,7 @@ describe('match scorrer', () => {
         const adult = scorrer.getAttributeScore('age', {age: 'Adult'}, null);
         const senior = scorrer.getAttributeScore('age', {age: 'Senior'}, null);
 
-        expect(puppy).toEqual([6, 0, 0]);
+        expect(puppy).toEqual([12, 0, 0]);
         expect(young).toEqual([0, 6, 0]);
         expect(adult).toEqual([0, 6, 2]);
         expect(senior).toEqual([0, 2, 6]);
