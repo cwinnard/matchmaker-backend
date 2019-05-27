@@ -9,8 +9,7 @@ const getMatchScore = (dog, quizResponses) => {
     if (!dog.scoreGrid) {
         return score;
     }
-    console.log(dog.scoreGrid);
-    dog.scoreGrid.keys.forEach((attrScore, index) => {
+    Object.keys(dog.scoreGrid).forEach((attrScore, index) => {
         score += attrScore[quizResponses[index]]
     });
     console.log(score);
@@ -23,7 +22,6 @@ MatchMaker.prototype.getMatchesInOrder = function (quizResponses) {
             const dogsWithScores = dogs.map((dog) => {
                 let dogWithScore = { ...dog };
                 dogWithScore.matchScore = getMatchScore(dog, quizResponses);
-                console.log(dogWithScore);
                 return dogWithScore;
             });
             const sortedMatches = _.orderBy(dogsWithScores, ['matchScore'], ['desc']);
