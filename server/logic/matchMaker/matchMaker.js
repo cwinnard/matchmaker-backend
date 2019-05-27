@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-const { Dog } = require('../../database/models/dog');
+const { Dog, dogSchema } = require('../../database/models/dog');
 
 function MatchMaker() {}
 
@@ -19,13 +19,25 @@ const getMatchScore = (dog, quizResponses) => {
 MatchMaker.prototype.getMatchesInOrder = function (quizResponses) {
     return new Promise(function(resolve, reject) {
         Dog.find({}).then((dogs) => {
-            console.log(dogs);
             const dogsWithScores = dogs.map((dog) => {
-                let dogWithScore = { ...dog };
+                const dogWithScore = {
+                    id: dog.id,
+                    name: dog.name,
+                    gender: dog.gender,
+                    breeds: dog.breeds,
+                    environment: dog.environment,
+                    age: dog.age,
+                    size: dog.size,
+                    description: dog.description,
+                    photos: dog.photos,
+                    organizationId: dog.organizationId,
+                    contact: dog.contact,
+                    scoreGrid: dog.scoreGrid,
+                    adopted: dog.adopted,
+                };
                 dogWithScore.matchScore = getMatchScore(dog, quizResponses);
                 return dogWithScore;
             });
-            console.log(dogsWithScores);
             const sortedMatches = _.orderBy(dogsWithScores, ['matchScore'], ['desc']);
             resolve(sortedMatches);
         })
