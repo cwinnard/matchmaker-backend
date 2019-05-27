@@ -20,7 +20,7 @@ MatchMaker.prototype.getMatchesInOrder = function (quizResponses) {
     return new Promise(function(resolve, reject) {
         Dog.find({}).then((dogs) => {
             const dogsWithScores = dogs.map((dog) => {
-                const dogWithScore = {
+                return {
                     id: dog.id,
                     name: dog.name,
                     gender: dog.gender,
@@ -34,9 +34,8 @@ MatchMaker.prototype.getMatchesInOrder = function (quizResponses) {
                     contact: dog.contact,
                     scoreGrid: dog.scoreGrid,
                     adopted: dog.adopted,
+                    matchScore: getMatchScore(dog, quizResponses),
                 };
-                dogWithScore.matchScore = getMatchScore(dog, quizResponses);
-                return dogWithScore;
             });
             const sortedMatches = _.orderBy(dogsWithScores, ['matchScore'], ['desc']);
             resolve(sortedMatches);
