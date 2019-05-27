@@ -9,10 +9,11 @@ const getMatchScore = (dog, quizResponses) => {
     if (!dog.scoreGrid) {
         return score;
     }
-    Object.keys(dog.scoreGrid).forEach((scoreArray, index) => {
-        console.log(scoreArray);
-        console.log(quizResponses[index]);
+    Object.keys(dog.scoreGrid).forEach((key, index) => {
+        const valueArray = dog.scoreGrid[key];
+        score += valueArray[quizResponses[index]]
     });
+    console.log(score);
     return score;
 }
 
