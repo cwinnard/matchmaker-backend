@@ -13,7 +13,6 @@ const getMatchScore = (dog, quizResponses) => {
         const valueArray = dog.scoreGrid[key];
         score += valueArray[quizResponses[index]]
     });
-    console.log(score);
     return score;
 }
 
@@ -25,6 +24,7 @@ MatchMaker.prototype.getMatchesInOrder = function (quizResponses) {
                 dogWithScore.matchScore = getMatchScore(dog, quizResponses);
                 return dogWithScore;
             });
+            console.log(dogsWithScores);
             const sortedMatches = _.orderBy(dogsWithScores, ['matchScore'], ['desc']);
             resolve(sortedMatches);
         })
