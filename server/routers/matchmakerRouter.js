@@ -7,11 +7,9 @@ const MatchMaker = require('../logic/matchMaker/matchMaker');
 const matchmakerRouter = express.Router();
 
 matchmakerRouter.post('/results', (req, res) => {
-    console.log(req);
     Dog.find({}).then((dogs) => {
         const matchmaker = new MatchMaker(dogs);
         const quizResponses = req.body.responses;
-        console.log(quizResponses);
         const orderedMatches = matchmaker.getMatchesInOrder(quizResponses);
         res.send(orderedMatches).status(200);
     });
