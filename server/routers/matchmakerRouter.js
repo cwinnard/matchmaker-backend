@@ -10,7 +10,6 @@ matchmakerRouter.post('/results', (req, res) => {
     Dog.find({}).then((dogs) => {
         const matchmaker = new MatchMaker(dogs);
         const quizResponses = req.body;
-        console.log(quizResponses);
         const orderedMatches = matchmaker.getMatchesInOrder(quizResponses);
         res.send(orderedMatches).status(200);
     });
