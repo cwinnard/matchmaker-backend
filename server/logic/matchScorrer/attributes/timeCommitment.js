@@ -1,8 +1,8 @@
 // Order goes [minimal, some, lots]
 const getTimeCommitmentScore = (dogInfo, breedInfo) => {
-    if (dogInfo.age === "Baby") {
+    if (dogInfo.age === 'Baby') {
         return [0, 0, 6];
-    } else if (dogInfo.age === "Senior") {
+    } else if (dogInfo.age === 'Senior') {
         return [6, 3, 0];
     } else {
         switch(breedInfo.activityLevel) {

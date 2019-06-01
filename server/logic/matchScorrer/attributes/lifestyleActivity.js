@@ -1,8 +1,8 @@
 // Order goes [low, medium, high]
 const getLifestyleActivityScore = (dogInfo, breedInfo) => {
-    if (dogInfo.age === "Baby") {
+    if (dogInfo.age === 'Baby') {
         return [0, 2, 6];
-    } else if (dogInfo.age === "Senior") {
+    } else if (dogInfo.age === 'Senior') {
         return [6, 2, 0];
     } else {
         switch(breedInfo.activityLevel) {
