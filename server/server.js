@@ -21,6 +21,7 @@ process.env.ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjBmZGJk
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use('/admin', adminRouter);
 app.use('/matchmaker', matchmakerRouter);
 app.use('/populate', populateRouter);
 
