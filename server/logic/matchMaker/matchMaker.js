@@ -1,21 +1,10 @@
 const _ = require('lodash');
 
 const { Dog, dogSchema } = require('../../database/models/dog');
+const { getMatchScore } = require('./utils');
 
 function MatchMaker(dogs) {
     this.dogs = dogs;
-}
-
-const getMatchScore = (dog, quizResponses) => {
-    let score = 0;
-    if (!dog.scoreGrid) {
-        return score;
-    }
-    Object.keys(dog.scoreGrid).forEach((key, index) => {
-        const valueArray = dog.scoreGrid[key];
-        score += valueArray[quizResponses[index]]
-    });
-    return score;
 }
 
 MatchMaker.prototype.getMatchesInOrder = function (quizResponses) {
