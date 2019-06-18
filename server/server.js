@@ -9,6 +9,7 @@ require('./database/connect');
 const { BreedInfo } = require('./database/models/breedInfo');
 const { Dog } = require('./database/models/dog');
 const { getDogInfo } = require('./logic/getDogInfo');
+const adminRouter = require('./routers/adminRouter');
 const matchmakerRouter = require('./routers/matchmakerRouter');
 const populateRouter = require('./routers/populateRouter');
 
