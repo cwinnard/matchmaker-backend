@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 const getMatchScore = (dog, quizResponses) => {
     let score = 0;
     if (!dog.scoreGrid) {
@@ -10,8 +12,17 @@ const getMatchScore = (dog, quizResponses) => {
     return score;
 }
 
-const curateTopMatches = () => {
-    return null;
+const curateTopMatches = (matches, number) => {
+    const curatedMatches = [];
+    const matchedBreeds = [];
+    while (curatedMatches.length < number) {
+        const newMatch = _.find(matches, (match) => {
+            return !_.includes(matchedBreeds, match.breeds.primary);
+        });
+        curatedMatches.push(newMatch);
+        matchedBreeds.push(newMatch.breeds.primary);
+    }
+    return curatedMatches;
 }
 
 module.exports = { getMatchScore, curateTopMatches };

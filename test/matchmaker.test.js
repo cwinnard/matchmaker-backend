@@ -2,6 +2,8 @@ const MatchMaker = require('../server/logic/matchMaker/matchMaker');
 const { curateTopMatches } = require('../server/logic/matchMaker/utils');
 
 const { noel, max, tifa, liam } = require('./data/dogRecords');
+const { allDogs } = require('./data/allDogs617');
+const { results } = require('./data/results');
 
 describe('match maker', () => {
     const dogs = [noel, max, tifa, liam];
@@ -53,8 +55,21 @@ describe('match maker', () => {
 
 describe('curate top matches', () => {
     it('should return diverse group of breeds', (done) => {
-        const curatedMatches = curateTopMatches();
-        expect(curatedMatches).toEqual([]);
+        const matchmaker = new MatchMaker(allDogs);
+        const activePerson = [0, 1, 2, 1, 1, 2];
+
+        const allMatches = matchmaker.getMatchesInOrder(activePerson);
+        const curatedMatches = curateTopMatches(allMatches, 5);
+        // replace description with null - test data
+        const testMatches = curatedMatches.map((curatedMatch) => {
+            const testMatch = curatedMatch;
+            testMatch.description = null;
+            return testMatch;
+        })
+
+        const expectedMatches = results;
+
+        expect(testMatches).toEqual(expectedMatches);
         done();
     });
 });
