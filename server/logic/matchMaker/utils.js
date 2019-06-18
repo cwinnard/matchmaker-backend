@@ -10,4 +10,8 @@ const getMatchScore = (dog, quizResponses) => {
     return score;
 }
 
-module.exports = { getMatchScore };
+const curateTopMatches = () => {
+    return null;
+}
+
+module.exports = { getMatchScore, curateTopMatches };

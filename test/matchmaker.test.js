@@ -1,4 +1,5 @@
 const MatchMaker = require('../server/logic/matchMaker/matchMaker');
+const { curateTopMatches } = require('../server/logic/matchMaker/utils');
 
 const { noel, max, tifa, liam } = require('./data/dogRecords');
 
@@ -46,6 +47,14 @@ describe('match maker', () => {
         expect(oldMatches).toEqual(oldExpected);
         expect(activeMatches).toEqual(activeExpected);
         expect(pupperMatches).toEqual(pupperExpected);
+        done();
+    });
+});
+
+describe('curate top matches', () => {
+    it('should return diverse group of breeds', (done) => {
+        const curatedMatches = curateTopMatches();
+        expect(curatedMatches).toEqual([]);
         done();
     });
 });
