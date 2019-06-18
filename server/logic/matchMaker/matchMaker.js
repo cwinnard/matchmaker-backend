@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
 const { Dog, dogSchema } = require('../../database/models/dog');
-const { getMatchScore } = require('./utils');
+const { getMatchScore, curateTopMatches } = require('./utils');
 
 function MatchMaker(dogs) {
     this.dogs = dogs;
@@ -27,7 +27,8 @@ MatchMaker.prototype.getMatchesInOrder = function (quizResponses) {
         };
     });
     const sortedMatches = _.orderBy(dogsWithScores, ['matchScore'], ['desc']);
-    return sortedMatches
+    const curatedMatches = curateTopMatches(sortedMatches, 5);
+    return curatedMatches
 };
 
 module.exports = MatchMaker;
