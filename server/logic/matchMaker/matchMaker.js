@@ -27,8 +27,9 @@ MatchMaker.prototype.getMatchesInOrder = function (quizResponses) {
         };
     });
     const sortedMatches = _.orderBy(dogsWithScores, ['matchScore'], ['desc']);
+    // Curate to avoid one breed dominating retults
     const curatedMatches = curateTopMatches(sortedMatches, 5);
-    return curatedMatches
+    return curatedMatches;
 };
 
 module.exports = MatchMaker;
