@@ -19,6 +19,7 @@ const curateTopMatches = (matches, number) => {
         const newMatch = _.find(matches, (match) => {
             return !_.includes(matchedBreeds, match.breeds.primary);
         });
+        // If there are no more unique breeds, break
         if (!newMatch) {
             break;
         }
