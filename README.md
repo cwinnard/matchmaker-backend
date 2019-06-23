@@ -18,6 +18,7 @@ and back end will respond with an array of dogs that best match the lifestyle of
 Details of file structure:
 
 2 main folders - server and test. Server folder houses all app files and test folder houses all tests for those app files.
+
 Server folder has 3 subfolders - database, logic, and routers.
 
 Database folder houses models and connection information
