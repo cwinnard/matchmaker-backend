@@ -26,6 +26,46 @@ Logic folder houses all dog matchmaking functionality.
 Routers folder houses all server routing information.
 server.js file is the main entrypoint, and the file that is invoked to run the server.
 
+Matchmaking Logic:
+
+There are two main entities in charge of handling the quiz taker to dog matchmaking. They are the MatchScorrer and the MatchMaker. The MatchScorrer is used as soon as a new dog record is created in the database. The MatchScorrer looks at attributes about the dog provided by the rescue and attributes about the breed scraped from the American Kennel Club website. The output of the MatchScorrer is an object with 6 keys, each of which is an array of values that correspond to the quiz results from the front end. 
+
+Score Grid example:
+
+"scoreGrid": {
+            "housing": [
+                6,
+                6,
+                2
+            ],
+            "kidsPets": [
+                3,
+                3,
+                3,
+                3
+            ],
+            "lifestyleActivity": [
+                0,
+                2,
+                6
+            ],
+            "age": [
+                6,
+                0,
+                0
+            ],
+            "size": [
+                2,
+                6,
+                2
+            ],
+            "timeCommitment": [
+                0,
+                0,
+                6
+            ]
+        }
+
 Tech Specs:
 
 Express.js server
