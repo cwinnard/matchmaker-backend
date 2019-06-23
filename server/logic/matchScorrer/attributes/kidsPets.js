@@ -54,6 +54,12 @@ const getKidsPetsScore = (dogInfo, breedInfo) => {
     // breed doesnt like either and dog loves pets
     } else if (breedInfo.goodWith.length === 0 && !noDogInfo && dogLoves.includes('dogs') && !dogLoves.includes('children')) {
         return [0, 3, 0, 3];
+    // breed loves both and dog data for only children
+    } else if (breedInfo.goodWith.length === 2 && !noDogInfo && !dogHates.includes('dogs') && dogLoves.includes('children')) {
+        return [6, 3, 2, 2];
+    // breed loves both and dog data for only pets
+    } else if (breedInfo.goodWith.length === 2 && !noDogInfo && dogLoves.includes('dogs') && !dogHates.includes('children')) {
+        return [3, 6, 2, 2];
     }
     return [0, 0, 0, 0];
 }

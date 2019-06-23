@@ -9,6 +9,18 @@ var dogSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    gender: {
+        type: String,
+        required: false,
+    },
+    breeds: {
+        type: mongoose.Schema.Types.Mixed,
+        required: false,
+    },
+    environment: {
+        type: mongoose.Schema.Types.Mixed,
+        required: false,
+    },
     age: {
         type: String,
         required: false,
@@ -17,6 +29,30 @@ var dogSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    description: {
+        type: String,
+        required: false,
+    },
+    photos: {
+        type: Array,
+        required: false,
+    },
+    organizationId: {
+        type: String,
+        required: false,
+    },
+    contact: {
+        type: mongoose.Schema.Types.Mixed,
+        required: false,
+    },
+    scoreGrid: {
+        type: mongoose.Schema.Types.Mixed,
+        required: false,
+    },
+    adopted: {
+        type: Boolean,
+        required: false,
+    }
 });
 
 var Dog = mongoose.model('dog', dogSchema);

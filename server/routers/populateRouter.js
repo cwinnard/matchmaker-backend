@@ -2,11 +2,13 @@ const _ = require('lodash');
 const axios = require('axios');
 const express = require('express');
 
+const { Dog } = require('../database/models/dog');
 const { BreedInfo } = require('../database/models/breedInfo');
 const { SurveyRes } = require('../database/models/surveyRes');
 const { getBreedHandle } = require('../logic/getBreedHandle');
 const { surveyDogTypes } = require('../logic/surveyDogTypes');
 const { extractBreedInfo } = require('../logic/extractBreedInfo');
+const { populateDogRecords } = require('../logic/populateDogRecords');
 
 
 const populateRouter = express.Router();
@@ -84,6 +86,22 @@ populateRouter.get('/get-all-breed-info', (req, res) => {
         })
         res.send(handles).status(200);
     });
+});
+
+populateRouter.get('/populate-dog-records', (req, res) => {
+    const HEADER =  { headers: { 'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN } };
+    const page = req.query.page || 1;
+    const orgId = req.query.orgId || 'CO395';
+    axios.get(`https://api.petfinder.com/v2/animals?organization=${orgId}&page=${page}`, HEADER).then((petfinderRes) => {
+        const petfinderDogs = _.filter(petfinderRes.data.animals, (animal) => { return animal.type === 'Dog' || animal.species === 'Dog' });
+        populateDogRecords(petfinderDogs).then((dogs) => {
+            Dog.collection.insertMany(dogs);
+            res.send(dogs).status(200);
+        });
+    }, (e) => {
+        console.log(e);
+        res.send(e).status(500);
+    })
 });
 
 
