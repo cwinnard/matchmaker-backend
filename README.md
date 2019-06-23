@@ -21,11 +21,8 @@ Details of file structure:
 Server folder has 3 subfolders - database, logic, and routers.
 
 Database folder houses models and connection information
-
 Logic folder houses all dog matchmaking functionality
-
 Routers folder houses all server routing information
-
 server.js file is the main entrypoint, and the file that is invoked to run the server
 
 Tech Specs:
