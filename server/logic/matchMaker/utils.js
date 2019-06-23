@@ -19,6 +19,9 @@ const curateTopMatches = (matches, number) => {
         const newMatch = _.find(matches, (match) => {
             return !_.includes(matchedBreeds, match.breeds.primary);
         });
+        if (!newMatch) {
+            break;
+        }
         curatedMatches.push(newMatch);
         matchedBreeds.push(newMatch.breeds.primary);
     }
