@@ -47,7 +47,7 @@ const getKidsPetsScore = (dogInfo, breedInfo) => {
         return [0, 0, 0, 3];
     // breed doesnt like either and dog loves both
     } else if (breedInfo.goodWith.length === 0 && !noDogInfo && dogLoves.includes('dogs') && dogLoves.includes('children')) {
-            return [3, 3, 3, 3];
+        return [3, 3, 3, 3];
     // breed doesnt like either and dog loves kids
     } else if (breedInfo.goodWith.length === 0 && !noDogInfo && !dogLoves.includes('dogs') && dogLoves.includes('children')) {
         return [3, 0, 0, 3];
